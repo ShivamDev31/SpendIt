@@ -10,4 +10,14 @@
         <item name="android:textColorSecondary">@android:color/black</item>
     </style>
 
+    <style name="AppTheme.ToolbarStyle">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

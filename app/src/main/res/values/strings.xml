@@ -10,4 +10,5 @@
     <string name="logout">Logout</string>
     <string name="give">Give</string>
     <string name="take">Take</string>
+    <string name="add_expense">Add Expense</string>
 </resources>

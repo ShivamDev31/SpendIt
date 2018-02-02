@@ -21,7 +21,7 @@ class TransactionsFragment : BaseFragment<TransactionsPresenter>(), Transactions
     }
 
     private fun setupRadioButtons() {
-        rgGiveTake.setOnCheckedChangeListener { group, checkedId ->
+        rgGiveTake.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbTake -> {
                     tvBalance.setTextColor(resources.getColor(R.color.green))

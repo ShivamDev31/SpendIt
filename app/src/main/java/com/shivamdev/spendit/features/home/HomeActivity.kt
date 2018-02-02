@@ -5,11 +5,13 @@ import com.shivamdev.spendit.R
 import com.shivamdev.spendit.common.base.BaseActivity
 import com.shivamdev.spendit.di.component.ActivityComponent
 import com.shivamdev.spendit.features.addexpense.AddExpenseActivity
-import com.shivamdev.spendit.features.expenses.ExpensesFragment
+import com.shivamdev.spendit.features.expenses.FriendsFragment
 import com.shivamdev.spendit.features.login.LoginActivity
 import com.shivamdev.spendit.features.transactions.TransactionsFragment
 import com.shivamdev.spendit.utils.activityStarter
+import com.shivamdev.spendit.utils.setupToolbar
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by shivam on 01/02/18.
@@ -21,6 +23,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
 
     override fun initView() {
         presenter.checkUserLogin()
+        setupToolbar(toolbar, showBack = false)
         homeBottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         replaceFragment(R.id.llHomeFragment, TransactionsFragment.newInstance(),
                 TRANSACTIONS_FRAGMENT_TAG)
@@ -55,7 +58,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                replaceFragment(R.id.llHomeFragment, ExpensesFragment.newInstance(), FRIENDS_FRAGMENT_TAG)
+                replaceFragment(R.id.llHomeFragment, FriendsFragment.newInstance(), FRIENDS_FRAGMENT_TAG)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {

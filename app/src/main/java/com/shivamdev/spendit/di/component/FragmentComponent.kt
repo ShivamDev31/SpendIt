@@ -2,6 +2,7 @@ package com.shivamdev.spendit.di.component
 
 import com.shivamdev.spendit.di.module.FragmentModule
 import com.shivamdev.spendit.di.scope.PerFragment
+import com.shivamdev.spendit.features.expenses.FriendsFragment
 import com.shivamdev.spendit.features.transactions.TransactionsFragment
 import dagger.Component
 
@@ -15,5 +16,6 @@ import dagger.Component
 interface FragmentComponent {
 
     fun inject(transactionsFragment: TransactionsFragment)
+    fun inject(friendsFragment: FriendsFragment)
 
 }
