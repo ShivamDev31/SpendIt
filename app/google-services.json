@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "769067545631",
+    "firebase_url": "https://spendit-16557.firebaseio.com",
+    "project_id": "spendit-16557",
+    "storage_bucket": "spendit-16557.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769067545631:android:33ca2bbdf0ca06b8",
+        "android_client_info": {
+          "package_name": "com.shivamdev.spendit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769067545631-pfj04qa0jcre2dehq5bgbdrps43100lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shivamdev.spendit",
+            "certificate_hash": "f257b5d78fdc4f8f1241d5a11838adbb4d67435d"
+          }
+        },
+        {
+          "client_id": "769067545631-3fs09mdjpkcleiiadb052kc2bpn8mpbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC0YEt8K97Xt0NgY5P_oXjRxljzDXTW8g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769067545631-3fs09mdjpkcleiiadb052kc2bpn8mpbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

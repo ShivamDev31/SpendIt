@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SpendIt</string>
+    <string name="loading">Loading…</string>
+    <string name="sign_in_error">Sign in error, please try again</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="expenses">Expenses</string>
+    <string name="logout">Logout</string>
+    <string name="give">Give</string>
+    <string name="take">Take</string>
+</resources>

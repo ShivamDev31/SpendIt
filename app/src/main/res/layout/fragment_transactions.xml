@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvHomeHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_header_height"
+        android:padding="@dimen/dimen_32"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="@dimen/dimen_8">
+
+        <RadioGroup
+            android:id="@+id/rgGiveTake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbGive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rb_bg_green"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dimen_8"
+                android:paddingEnd="@dimen/dimen_32"
+                android:paddingStart="@dimen/dimen_32"
+                android:paddingTop="@dimen/dimen_8"
+                android:text="@string/take"
+                android:textColor="@drawable/rb_text_color_white_grey"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rbTake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_48"
+                android:layout_marginStart="@dimen/dimen_48"
+                android:background="@drawable/rb_bg_red"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dimen_8"
+                android:paddingEnd="@dimen/dimen_32"
+                android:paddingStart="@dimen/dimen_32"
+                android:paddingTop="@dimen/dimen_8"
+                android:text="@string/give"
+                android:textColor="@drawable/rb_text_color_white_grey"
+                android:textStyle="bold" />
+
+        </RadioGroup>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20b92000"
+            android:textColor="@color/green" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvTransactions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_transactions" />
+
+</LinearLayout>

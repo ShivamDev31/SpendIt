@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.shivamdev.spendit"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    dexOptions {
+        maxProcessCount 4
+        preDexLibraries false
+        javaMaxHeapSize "8g"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+apply from: 'dependencies.gradle'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation supportLibs
+    implementation kotlinLibs
+    implementation firebaseLibs
+    implementation networkLibs
+    implementation rxJavaLibs
+    implementation otherLibs
+
+    debugImplementation debugLibs
+    //releaseImplementation releaseLibs
+
+    implementation(glideOkhttp) {
+        exclude group: 'glide-parent'
+    }
+
+    // APT dependencies
+    kapt annotationProcessorLibs
+    kaptTest daggerCompiler
+    kaptAndroidTest daggerCompiler
+
+    testImplementation unitTestLibs
+    androidTestImplementation androidTestsLibs
+
+    testImplementation unitTestLibs
+    androidTestImplementation androidTestsLibs
+}
+
+apply plugin: 'com.google.gms.google-services'
