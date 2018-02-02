@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_transactions.*
  */
 class TransactionsFragment : BaseFragment<TransactionsPresenter>(), TransactionsView {
 
-    private lateinit var adapter : TransactionsAdapter
+    private lateinit var adapter: TransactionsAdapter
 
     override fun initView() {
         setupRadioButtons()
@@ -22,7 +22,7 @@ class TransactionsFragment : BaseFragment<TransactionsPresenter>(), Transactions
 
     private fun setupRadioButtons() {
         rgGiveTake.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId) {
+            when (checkedId) {
                 R.id.rbTake -> {
                     tvBalance.setTextColor(resources.getColor(R.color.green))
                 }

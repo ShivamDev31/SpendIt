@@ -10,7 +10,7 @@ import com.shivamdev.spendit.R
 /**
  * Created by shivam on 02/02/18.
  */
-class ExpensesFragment: Fragment() {
+class ExpensesFragment : Fragment() {
 
     companion object {
         fun newInstance(): ExpensesFragment {
