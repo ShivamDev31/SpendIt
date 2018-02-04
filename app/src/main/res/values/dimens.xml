@@ -15,4 +15,10 @@
     <dimen name="font_12">12sp</dimen>
     <dimen name="dimen_12">12dp</dimen>
     <dimen name="expense_card_height">80dp</dimen>
+    <dimen name="login_logo_dimens">200dp</dimen>
+    <dimen name="font_24">24sp</dimen>
+    <dimen name="font_32">32sp</dimen>
+    <dimen name="google_sign_in_button_width">200dp</dimen>
+    <dimen name="dimen_72">72dp</dimen>
+    <dimen name="dimen_80">80dp</dimen>
 </resources>

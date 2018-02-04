@@ -31,4 +31,5 @@
     <string name="expense_detail">Expense detail</string>
     <string name="expenses_split_up">Expenses split up</string>
     <string name="friend_expenses">Friend expenses</string>
+    <string name="your_own_money_splitter">Your own Money Splitter</string>
 </resources>
