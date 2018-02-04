@@ -6,6 +6,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="rupee">\u20b9</string>
     <string name="rupee_amount">\u20b9%s</string>
     <string name="rupee_amount_int">\u20b9%d</string>
     <string name="expenses">Expenses</string>
