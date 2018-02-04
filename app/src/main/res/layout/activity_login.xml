@@ -10,6 +10,7 @@
         android:layout_height="@dimen/login_logo_dimens"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dimen_136"
+        android:background="@drawable/ic_rupee"
         android:gravity="center"
         android:text="@string/rupee_amount"
         android:textColor="@color/white"
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLoginLogo"
+        android:layout_marginTop="@dimen/dimen_16"
         android:fontFamily="monospace"
         android:gravity="center"
         android:text="@string/app_name"
@@ -44,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/dimen_72"
         android:visibility="visible" />
 
 </RelativeLayout>

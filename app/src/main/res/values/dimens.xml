@@ -24,4 +24,5 @@
     <dimen name="dimen_104">104dp</dimen>
     <dimen name="dimen_136">136dp</dimen>
     <dimen name="dimen_2">2dp</dimen>
+    <dimen name="dimen_128">128dp</dimen>
 </resources>
