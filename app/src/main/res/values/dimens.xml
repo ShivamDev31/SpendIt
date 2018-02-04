@@ -12,4 +12,7 @@
     <dimen name="font_16">16sp</dimen>
     <dimen name="name_circle_dimens">40dp</dimen>
     <dimen name="font_20">20sp</dimen>
+    <dimen name="font_12">12sp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="expense_card_height">80dp</dimen>
 </resources>

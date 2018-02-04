@@ -13,7 +13,7 @@ import javax.inject.Singleton
  * Created by shivam on 01/02/18.
  */
 
-@Module//(includes = [(ApiModule::class)])
+@Module
 class AppModule(private val application: Application) {
 
     @Provides

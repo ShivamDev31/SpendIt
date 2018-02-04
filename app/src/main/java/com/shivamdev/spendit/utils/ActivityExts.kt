@@ -15,4 +15,8 @@ inline fun <reified T : Any> Activity.activityStarter() {
 inline fun <reified T : Any> intentFor(context: Context):
         Intent = Intent(context, T::class.java)
 
+inline fun <reified T : Any> Activity.activityStarterForResult(requestCode: Int) {
+    startActivityForResult(intentFor<T>(this), requestCode)
+}
+
 

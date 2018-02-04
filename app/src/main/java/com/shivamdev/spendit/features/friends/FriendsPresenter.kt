@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.features.expenses
+package com.shivamdev.spendit.features.friends
 
 import com.shivamdev.spendit.common.mvp.BasePresenter
 import javax.inject.Inject

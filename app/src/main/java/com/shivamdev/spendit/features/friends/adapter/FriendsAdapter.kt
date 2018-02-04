@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.features.expenses.adapter
+package com.shivamdev.spendit.features.friends.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.shivamdev.spendit.R
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.utils.initials
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_friends.view.*
 
 /**
@@ -14,12 +15,13 @@ import kotlinx.android.synthetic.main.item_friends.view.*
  */
 class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
 
-    private val list = mutableListOf<User>()
+    private val friends = mutableListOf<User>()
+
+    private val clickSubject = PublishSubject.create<String>()
 
     init {
-        (1..10).mapTo(list) {
-            User("Shivam $it",
-                    "\u20b9${it * 2000}")
+        (1..10).mapTo(friends) {
+            User("$it", "Shivam $it")
         }
     }
 
@@ -30,22 +32,29 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
     }
 
     override fun onBindViewHolder(holder: FriendsHolder?, position: Int) {
-        holder?.bind(list[position])
+        holder?.bind(friends[position])
     }
 
     override fun getItemCount(): Int {
         return 10
     }
 
-    fun updateTransactions() {
+    fun updateTransactions(users: MutableList<User>) {
 
     }
 
+    fun getFriendCickedEvent() = clickSubject
+
     inner class FriendsHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        init {
+            itemView.setOnClickListener { clickSubject.onNext(friends[adapterPosition].userId!!) }
+        }
+
         fun bind(user: User) {
-            itemView.tvNameInitials.text = user.name.initials().toString()
+            itemView.tvNameInitials.text = user.name?.initials()
             itemView.tvFriendName.text = user.name
-            itemView.tvOwingAmount.text = user.amountBalance
+            //itemView.tvOwingAmount.text = "\u20b9${user.amountBalance}"
         }
 
     }

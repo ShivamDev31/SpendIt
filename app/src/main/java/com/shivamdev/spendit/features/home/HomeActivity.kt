@@ -5,9 +5,9 @@ import com.shivamdev.spendit.R
 import com.shivamdev.spendit.common.base.BaseActivity
 import com.shivamdev.spendit.di.component.ActivityComponent
 import com.shivamdev.spendit.features.addexpense.AddExpenseActivity
-import com.shivamdev.spendit.features.expenses.FriendsFragment
+import com.shivamdev.spendit.features.expenses.ExpensesFragment
+import com.shivamdev.spendit.features.friends.FriendsFragment
 import com.shivamdev.spendit.features.login.LoginActivity
-import com.shivamdev.spendit.features.transactions.TransactionsFragment
 import com.shivamdev.spendit.utils.activityStarter
 import com.shivamdev.spendit.utils.setupToolbar
 import kotlinx.android.synthetic.main.activity_home.*
@@ -25,7 +25,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
         presenter.checkUserLogin()
         setupToolbar(toolbar, showBack = false)
         homeBottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        replaceFragment(R.id.llHomeFragment, TransactionsFragment.newInstance(),
+        replaceFragment(R.id.llHomeFragment, ExpensesFragment.newInstance(),
                 TRANSACTIONS_FRAGMENT_TAG)
         fabAddExpense.setOnClickListener {
             activityStarter<AddExpenseActivity>()
@@ -35,10 +35,6 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
     override fun startLoginActivity() {
         activityStarter<LoginActivity>()
         finish()
-    }
-
-    override fun showUserName(userDetails: String) {
-        //tvUserDetails.text = userDetails
     }
 
     override val layout: Int = R.layout.activity_home
@@ -54,7 +50,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                replaceFragment(R.id.llHomeFragment, TransactionsFragment.newInstance(), TRANSACTIONS_FRAGMENT_TAG)
+                replaceFragment(R.id.llHomeFragment, ExpensesFragment.newInstance(), TRANSACTIONS_FRAGMENT_TAG)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {

@@ -20,4 +20,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CtaButton">
+        <item name="android:background">@drawable/cta_button_bg</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

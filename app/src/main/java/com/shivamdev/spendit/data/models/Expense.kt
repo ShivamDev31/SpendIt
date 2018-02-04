@@ -5,11 +5,11 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 /**
- * Created by shivam on 02/02/18.
+ * Created by shivam on 04/02/18.
  */
-
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class User(val userId: String?,
-                val name: String?)
-    : Parcelable
+data class Expense(val id: String,
+                   val payer: String,
+                   val amount: Int,
+                   val purpose: String) : Parcelable

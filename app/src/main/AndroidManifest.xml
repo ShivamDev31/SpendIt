@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".features.login.LoginActivity" />
         <activity android:name=".features.addexpense.AddExpenseActivity" />
-        <activity android:name=".features.details.DetailsActivity" />
+        <activity android:name=".features.friendexpenses.FriendExpensesActivity" />
+        <activity android:name=".features.addexpense.FriendsSelectionActivity" />
     </application>
 
 </manifest>

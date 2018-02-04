@@ -46,7 +46,7 @@ ext {
             firebaseCore: "com.google.firebase:firebase-core:$versions.firebase",
             firebaseAuth: "com.google.firebase:firebase-auth:$versions.firebase",
             googleAuth  : "com.google.android.gms:play-services-auth:$versions.firebase",
-            database    : "com.google.firebase:firebase-database:$versions.firebase",
+            database    : "com.google.firebase:firebase-firestore:$versions.firebase",
     ]
 
     rxJava = [

@@ -1,7 +1,6 @@
 package com.shivamdev.spendit.di.module
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,8 +14,8 @@ class FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseDatabase(): DatabaseReference {
-        return FirebaseDatabase.getInstance().reference
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 
 }

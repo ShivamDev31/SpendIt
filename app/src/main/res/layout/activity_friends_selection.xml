@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvFriends"
+        android:id="@+id/rvFriendsSelection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/dimen_48"
-        tools:listitem="@layout/item_friends" />
+        tools:listitem="@layout/item_friends_selection" />
 
 </LinearLayout>

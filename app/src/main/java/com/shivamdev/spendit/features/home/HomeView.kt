@@ -7,5 +7,4 @@ import com.shivamdev.spendit.common.mvp.BaseView
  */
 interface HomeView : BaseView {
     fun startLoginActivity()
-    fun showUserName(userDetails: String)
 }

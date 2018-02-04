@@ -3,6 +3,7 @@ package com.shivamdev.spendit.di.component
 
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.PrefHelper
+import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.di.module.AppModule
 import com.shivamdev.spendit.di.module.FirebaseModule
 import dagger.Component
@@ -19,5 +20,7 @@ interface AppComponent {
     fun prefHelper(): PrefHelper
 
     fun firebaseHelper(): FirebaseHelper
+
+    fun userHelper(): UserHelper
 
 }

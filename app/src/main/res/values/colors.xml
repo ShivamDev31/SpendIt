@@ -12,5 +12,7 @@
     <color name="grey">#BDBDBD</color>
     <color name="dark_grey">#696969</color>
     <color name="red">#FF0000</color>
+    <color name="dark_red">#CC0000</color>
+    <color name="orange_red">#FF4500</color>
     <color name="blue">#0000FF</color>
 </resources>

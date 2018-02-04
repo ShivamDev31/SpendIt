@@ -14,13 +14,12 @@ class HomePresenter @Inject constructor(private val firebaseHelper: FirebaseHelp
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
             view?.startLoginActivity()
-        } else {
-            view?.showUserName("${user.displayName} \n${user.email}")
         }
     }
 
     fun logoutUser() {
         FirebaseAuth.getInstance().signOut()
+
         checkUserLogin()
     }
 

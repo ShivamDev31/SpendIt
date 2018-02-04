@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <!--<android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/expense_card_height"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardElevation="@dimen/dimen_8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvExpensePurpose"
+                tools:text="\u20b92000"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>-->
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvFriendExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_grey"
+        android:padding="@dimen/dimen_4"
+        android:paddingLeft="@dimen/dimen_16"
+        android:paddingStart="@dimen/dimen_16"
+        android:text="@string/expenses_split_up"
+        android:textSize="@dimen/font_16"
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFriendsSplitUp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_friends" />
+
+</LinearLayout>

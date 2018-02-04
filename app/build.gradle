@@ -16,12 +16,15 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     dexOptions {
         maxProcessCount 4
         preDexLibraries false
         javaMaxHeapSize "8g"
     }
-
 
     buildTypes {
         release {
@@ -34,30 +37,24 @@ android {
 apply from: 'dependencies.gradle'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation supportLibs
     implementation kotlinLibs
     implementation firebaseLibs
     implementation networkLibs
     implementation rxJavaLibs
     implementation otherLibs
-
     debugImplementation debugLibs
     //releaseImplementation releaseLibs
-
     implementation(glideOkhttp) {
         exclude group: 'glide-parent'
     }
-
     // APT dependencies
     kapt annotationProcessorLibs
     kaptTest daggerCompiler
     kaptAndroidTest daggerCompiler
-
     testImplementation unitTestLibs
     androidTestImplementation androidTestsLibs
-
     testImplementation unitTestLibs
     androidTestImplementation androidTestsLibs
 }

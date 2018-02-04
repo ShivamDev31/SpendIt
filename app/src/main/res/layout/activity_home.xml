@@ -42,5 +42,5 @@
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:background="#EDEDED"
-        app:menu="@menu/home_bottom_navigation" />
+        app:menu="@menu/menu_home_bottom_navigation" />
 </RelativeLayout>

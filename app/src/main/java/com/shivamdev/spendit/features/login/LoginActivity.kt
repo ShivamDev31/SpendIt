@@ -43,6 +43,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
                 .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         firebaseAuth = FirebaseAuth.getInstance()
+        googleSignInClient.signOut()
     }
 
     override fun signIn() {
