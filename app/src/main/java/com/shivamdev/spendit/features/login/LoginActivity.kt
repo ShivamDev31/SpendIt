@@ -13,10 +13,11 @@ import com.shivamdev.spendit.common.base.BaseActivity
 import com.shivamdev.spendit.di.component.ActivityComponent
 import com.shivamdev.spendit.features.home.HomeActivity
 import com.shivamdev.spendit.utils.activityStarter
-import com.shivamdev.spendit.utils.hideProgressDialog
+import com.shivamdev.spendit.utils.hide
 import com.shivamdev.spendit.utils.shortToast
-import com.shivamdev.spendit.utils.showProgressDialog
+import com.shivamdev.spendit.utils.show
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.progress_layout.*
 import timber.log.Timber
 
 
@@ -70,9 +71,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Timber.i("firebaseAuthWithGoogle:$acct.id")
-        // [START_EXCLUDE silent]
-        showProgressDialog(R.string.loading)
-        // [END_EXCLUDE]
+        progressBar.show()
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         firebaseAuth.signInWithCredential(credential)
@@ -88,7 +87,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
                         Timber.i("signInWithCredential:failure ${task.exception}")
                     }
 
-                    hideProgressDialog()
+                    progressBar.hide()
                 })
     }
 

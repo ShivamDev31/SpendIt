@@ -3,7 +3,6 @@ package com.shivamdev.spendit.features.expenses
 import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
-import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.utils.NoSuchDocumentException
 import com.shivamdev.spendit.utils.transformObservable
 import timber.log.Timber
@@ -26,8 +25,9 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     }
                 })
                 .compose(transformObservable())
-                .subscribe({ balance ->
-                    view?.updateUserBalance(balance.userLent)
+                .subscribe({ user ->
+                    val netBalance = user.userLent - user.userBorrow
+                    view?.updateUserBalance(user.userLent, netBalance)
                 }, {
                     Timber.e(it)
                 })
@@ -45,8 +45,9 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     }
                 })
                 .compose(transformObservable())
-                .subscribe({ balance ->
-                    view?.updateUserBalance(balance.userBorrow)
+                .subscribe({ user ->
+                    val netBalance = user.userLent - user.userBorrow
+                    view?.updateUserBalance(user.userBorrow, netBalance)
                 }, {
                     Timber.e(it)
                 })
@@ -55,12 +56,21 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
     }
 
     fun getExpensesData() {
-        val expenses = mutableListOf<Expense>()
-        (0..9).mapTo(expenses) {
-            Expense("$it", "Shivam $it", (it + 1) * 1000,
-                    "Trip to bali $it")
-        }
-        view?.updateUserExpenses(expenses)
+        view?.showLoader()
+        val disp = firebaseHelper.getUserExpenses(userHelper.getUser().userId)
+                .compose(transformObservable())
+                .subscribe({
+                    if (it.isNotEmpty()) {
+                        view?.updateUserExpenses(it.toMutableList())
+                    } else {
+                        view?.showNoExpensesMessage()
+                    }
+                    view?.hideLoader()
+                }, { Timber.e(it) })
+
+        addDisposable(disp)
+
+
     }
 
 }

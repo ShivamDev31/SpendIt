@@ -13,7 +13,8 @@ import java.util.*
 @Parcelize
 data class User(val userId: String? = "",
                 val name: String? = "",
-                val userLent: Int = 0,
-                val userBorrow: Int = 0,
+                var userLent: Int = 0,
+                var userBorrow: Int = 0,
+                var checked: Boolean = false,
                 val timeStamp: Long = Date().time)
     : Parcelable

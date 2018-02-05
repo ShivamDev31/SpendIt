@@ -24,13 +24,22 @@ class FriendsSelectionActivity : BaseActivity<FriendsSelectionPresenter>(), Frie
 
     private lateinit var adapter: FriendsSelectionAdapter
 
-    private val selectedUsers = ArrayList<User>()
+    private var selectedUsers = ArrayList<User>()
 
     override fun initView() {
         setupToolbar(toolbar, getString(R.string.select_friends), true)
+        getDataFromBundle()
         setupRecyclerView()
-        presenter.getUserData()
+        presenter.getUserData(selectedUsers)
+        setupFriendAddedListener()
+        setupFriendRemovedListener()
+    }
 
+    private fun getDataFromBundle() {
+        val friends: ArrayList<User>? = intent?.extras?.getParcelableArrayList(SELECTED_USERS)
+        if (friends != null && friends.size > 0) {
+            selectedUsers = friends
+        }
     }
 
     private fun setupRecyclerView() {
@@ -46,6 +55,16 @@ class FriendsSelectionActivity : BaseActivity<FriendsSelectionPresenter>(), Frie
         adapter.updateData(users)
     }
 
+    private fun setupFriendAddedListener() {
+        adapter.addFriendListener()
+                .subscribe { selectedUsers.add(it) }
+    }
+
+    private fun setupFriendRemovedListener() {
+        adapter.removeFriendListener()
+                .subscribe { selectedUsers.remove(it) }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_friends_selection, menu)
         return super.onCreateOptionsMenu(menu)
@@ -56,18 +75,10 @@ class FriendsSelectionActivity : BaseActivity<FriendsSelectionPresenter>(), Frie
 
         when (itemId) {
             R.id.menu_item_done -> {
-                mapDummyData()
                 presenter.friendsSelected(selectedUsers)
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun mapDummyData() {
-        (1..10).filter { it % 2 == 0 }
-                .mapTo(selectedUsers) {
-                    User("$it", "Shivam $it")
-                }
     }
 
     override fun showSelectedFriendsOnUi() {

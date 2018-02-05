@@ -9,10 +9,13 @@ import com.shivamdev.spendit.common.constants.EXPENSE
 import com.shivamdev.spendit.common.constants.USER_ID
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.di.component.ActivityComponent
-import com.shivamdev.spendit.features.addexpense.AddShowShowExpenseActivity
+import com.shivamdev.spendit.features.addexpense.AddShowExpenseActivity
 import com.shivamdev.spendit.features.friendexpenses.adapter.FriendExpensesAdapter
+import com.shivamdev.spendit.utils.hide
 import com.shivamdev.spendit.utils.setupToolbar
+import com.shivamdev.spendit.utils.show
 import kotlinx.android.synthetic.main.activity_friend_details.*
+import kotlinx.android.synthetic.main.progress_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
@@ -51,10 +54,18 @@ class FriendExpensesActivity : BaseActivity<FriendExpensesPresenter>(), FriendEx
     private fun setupExpenseClickListener() {
         adapter.getClickEvent()
                 .subscribe { expense ->
-                    val intent = Intent(this, AddShowShowExpenseActivity::class.java)
+                    val intent = Intent(this, AddShowExpenseActivity::class.java)
                     intent.putExtra(EXPENSE, expense)
                     startActivity(intent)
                 }
+    }
+
+    override fun showLoader() {
+        progressBar.show()
+    }
+
+    override fun hideLoader() {
+        progressBar.hide()
     }
 
     override val layout: Int = R.layout.activity_friend_details

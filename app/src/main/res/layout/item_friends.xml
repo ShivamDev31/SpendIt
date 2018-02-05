@@ -52,14 +52,14 @@
             android:id="@+id/tvOwingStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You owe" />
+            tools:text="You lent" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tvOwingAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_4"
-            android:text="\u20b91000" />
+            tools:text="\u20b91000" />
 
     </LinearLayout>
 

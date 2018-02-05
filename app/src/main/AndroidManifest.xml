@@ -23,7 +23,7 @@
             android:name=".features.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".features.addexpense.AddShowShowExpenseActivity"
+            android:name=".features.addexpense.AddShowExpenseActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".features.friendexpenses.FriendExpensesActivity"

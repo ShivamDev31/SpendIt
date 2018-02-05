@@ -11,12 +11,13 @@ import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.di.component.ActivityComponent
 import com.shivamdev.spendit.utils.*
 import kotlinx.android.synthetic.main.activity_add_expense.*
+import kotlinx.android.synthetic.main.progress_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by shivam on 01/02/18.
  */
-class AddShowShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowExpenseView {
+class AddShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowExpenseView {
 
     private val FRIEND_SELECTION_REQUEST_CODE = 9001
 
@@ -38,7 +39,9 @@ class AddShowShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddS
 
     private fun addExpenseFlow() {
         llFriendsSelection.setOnClickListener {
-            activityStarterForResult<FriendsSelectionActivity>(FRIEND_SELECTION_REQUEST_CODE)
+            val intent = Intent(this, FriendsSelectionActivity::class.java)
+            intent.putParcelableArrayListExtra(SELECTED_USERS, selectedUsers)
+            startActivityForResult(intent, FRIEND_SELECTION_REQUEST_CODE)
         }
 
         setupTextValues()
@@ -56,10 +59,18 @@ class AddShowShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddS
             isEnabled = false
         }
 
-        tvPayer.text = expense?.payer
-        tvPayerInitials.text = expense?.payer?.initials()
+        tvSelectFriendsTitle.text = getString(R.string.selected_friends)
+        tvPayer.text = expense?.name
+        tvPayerInitials.text = expense?.name?.initials()
         tvPayerPaidAmount.text = getString(R.string.rupee_amount_int, expense?.amount)
+        presenter.filterFriends(expense?.friends)
         bSaveExpense.hide()
+    }
+
+    override fun updateFilteredUsers(users: MutableList<User>) {
+        selectedUsers.clear()
+        selectedUsers.addAll(users)
+        showSelectedFriendsOnUi()
     }
 
     private fun getBundleData() {
@@ -93,7 +104,12 @@ class AddShowShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddS
 
     override fun expenseSaved() {
         longToast(R.string.expense_saved)
+        progressBar.hide()
         finish()
+    }
+
+    override fun showLoader() {
+        progressBar.show()
     }
 
     override fun showAmountEmptyError() {
@@ -115,7 +131,6 @@ class AddShowShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddS
         if (requestCode == FRIEND_SELECTION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedUsers = data?.extras?.getParcelableArrayList(SELECTED_USERS)!!
             showSelectedFriendsOnUi()
-
         }
     }
 

@@ -49,4 +49,6 @@
         android:layout_marginBottom="@dimen/dimen_72"
         android:visibility="visible" />
 
+    <include layout="@layout/progress_layout" />
+
 </RelativeLayout>

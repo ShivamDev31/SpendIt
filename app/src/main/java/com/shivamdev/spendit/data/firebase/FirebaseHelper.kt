@@ -1,8 +1,11 @@
 package com.shivamdev.spendit.data.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.shivamdev.spendit.common.constants.USER_TABLE
+import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.data.models.User
+import com.shivamdev.spendit.utils.getCompletable
 import com.shivamdev.spendit.utils.getObservable
 import com.shivamdev.spendit.utils.mergeDocument
 import io.reactivex.Completable
@@ -27,6 +30,14 @@ class FirebaseHelper @Inject constructor(private val firestore: FirebaseFirestor
 
     fun getAllUsers(): Observable<List<User>> {
         return firestore.collection(USER_TABLE).getObservable()
+    }
+
+    fun addExpense(userId: String, expense: Expense): Completable {
+        return firestore.collection(userId).add(expense).getCompletable()
+    }
+
+    fun getUserExpenses(userId: String?): Observable<List<Expense>> {
+        return firestore.collection(userId!!).orderBy("timeStamp", Query.Direction.DESCENDING).getObservable()
     }
 
 }

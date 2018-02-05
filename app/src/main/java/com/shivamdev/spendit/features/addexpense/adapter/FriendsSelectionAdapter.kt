@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.shivamdev.spendit.R
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.utils.initials
-import kotlinx.android.synthetic.main.item_friends.view.*
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.item_friends_selection.view.*
 
 /**
  * Created by shivam on 03/02/18.
@@ -15,6 +17,9 @@ import kotlinx.android.synthetic.main.item_friends.view.*
 class FriendsSelectionAdapter : RecyclerView.Adapter<FriendsSelectionAdapter.FriendsSelectionHolder>() {
 
     private var users = mutableListOf<User>()
+
+    private val addFriendSubject = PublishSubject.create<User>()
+    private val removeFriendSubject = PublishSubject.create<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): FriendsSelectionHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_friends_selection,
@@ -34,11 +39,29 @@ class FriendsSelectionAdapter : RecyclerView.Adapter<FriendsSelectionAdapter.Fri
         notifyDataSetChanged()
     }
 
+    fun addFriendListener(): Observable<User> = addFriendSubject
+
+    fun removeFriendListener(): Observable<User> = removeFriendSubject
+
     inner class FriendsSelectionHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        init {
+            itemView.cbFriendSelection
+                    .setOnCheckedChangeListener { _, checked ->
+                        val user = users[adapterPosition]
+                        user.checked = checked
+                        if (checked) {
+                            addFriendSubject.onNext(user)
+                        } else {
+                            removeFriendSubject.onNext(user)
+                        }
+                    }
+        }
 
         fun bind(user: User) {
             itemView.tvNameInitials.text = user.name?.initials()
             itemView.tvFriendName.text = user.name
+            itemView.cbFriendSelection.isChecked = user.checked
         }
 
     }

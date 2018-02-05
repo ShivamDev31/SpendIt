@@ -8,5 +8,7 @@ import com.shivamdev.spendit.data.models.Expense
  */
 interface FriendExpensesView : BaseView {
     fun showFriendExpenses(expenses: MutableList<Expense>)
+    fun showLoader()
+    fun hideLoader()
 
 }

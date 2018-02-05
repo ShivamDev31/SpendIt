@@ -48,10 +48,11 @@ class FriendExpensesAdapter : RecyclerView.Adapter<FriendExpensesAdapter.FriendE
 
         fun bind(expense: Expense) {
             val purpose = expense.purpose
+            itemView.tvOwingStatus.text = expense.owingText
             itemView.tvNameInitials.text = purpose.initials()
             itemView.tvFriendName.text = purpose
             itemView.tvOwingAmount.text = itemView.context.getString(R.string.rupee_amount_int,
-                    expense.amount)
+                    expense.amountPerUser)
         }
     }
 

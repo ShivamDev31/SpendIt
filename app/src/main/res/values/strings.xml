@@ -9,6 +9,7 @@
     <string name="rupee">\u20b9</string>
     <string name="rupee_amount">\u20b9%s</string>
     <string name="rupee_amount_int">\u20b9%d</string>
+    <string name="rupee_net_balance_int">Balance\n\u20b9%d</string>
     <string name="expenses">Expenses</string>
     <string name="logout">Logout</string>
     <string name="give">Give</string>
@@ -35,4 +36,7 @@
     <string name="your_own_money_splitter">Your own Money Splitter</string>
     <string name="lent">Lent</string>
     <string name="borrow">Borrow</string>
+    <string name="no_expenses_found">No expenses found, please add an expense</string>
+    <string name="selected_friends">Selected Friends</string>
+    <string name="rupee_na">₹NA</string>
 </resources>
