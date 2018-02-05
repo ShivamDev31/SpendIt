@@ -55,6 +55,7 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
         val expense = Expense(payer.userId!!, payer.name!!, amountPaid, purpose!!, amountPerUser,
                 getExpenseFriendsMap(selectedUsers))
         selectedUsers.forEach {
+            it.checked = false
             updateUserBalance(it, expense)
             updateUserExpense(it.userId!!, expense)
         }

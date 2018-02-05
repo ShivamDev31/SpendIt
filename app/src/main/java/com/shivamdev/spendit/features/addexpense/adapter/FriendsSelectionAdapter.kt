@@ -49,11 +49,14 @@ class FriendsSelectionAdapter : RecyclerView.Adapter<FriendsSelectionAdapter.Fri
             itemView.cbFriendSelection
                     .setOnCheckedChangeListener { _, checked ->
                         val user = users[adapterPosition]
-                        user.checked = checked
                         if (checked) {
-                            addFriendSubject.onNext(user)
+                            if (!user.checked) {
+                                addFriendSubject.onNext(user)
+                            }
+                            user.checked = checked
                         } else {
                             removeFriendSubject.onNext(user)
+                            user.checked = checked
                         }
                     }
         }
