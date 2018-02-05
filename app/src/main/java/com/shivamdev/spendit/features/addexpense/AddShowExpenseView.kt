@@ -6,7 +6,7 @@ import com.shivamdev.spendit.data.models.User
 /**
  * Created by shivam on 01/02/18.
  */
-interface AddExpenseView : BaseView {
+interface AddShowExpenseView : BaseView {
     fun setAddPayerName(user: User)
     fun showAmountEmptyError()
     fun showPurposeEmptyError()

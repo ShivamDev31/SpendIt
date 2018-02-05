@@ -9,7 +9,7 @@ import com.shivamdev.spendit.common.constants.EXPENSE
 import com.shivamdev.spendit.common.constants.USER_ID
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.di.component.ActivityComponent
-import com.shivamdev.spendit.features.addexpense.AddExpenseActivity
+import com.shivamdev.spendit.features.addexpense.AddShowShowExpenseActivity
 import com.shivamdev.spendit.features.friendexpenses.adapter.FriendExpensesAdapter
 import com.shivamdev.spendit.utils.setupToolbar
 import kotlinx.android.synthetic.main.activity_friend_details.*
@@ -51,7 +51,7 @@ class FriendExpensesActivity : BaseActivity<FriendExpensesPresenter>(), FriendEx
     private fun setupExpenseClickListener() {
         adapter.getClickEvent()
                 .subscribe { expense ->
-                    val intent = Intent(this, AddExpenseActivity::class.java)
+                    val intent = Intent(this, AddShowShowExpenseActivity::class.java)
                     intent.putExtra(EXPENSE, expense)
                     startActivity(intent)
                 }

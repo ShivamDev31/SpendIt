@@ -7,7 +7,7 @@ import com.squareup.moshi.Moshi
  * Created by shivam on 01/02/18.
  */
 
-inline fun <reified T : Any> Moshi.toJson(data: T): String {
+inline fun <reified T : Any> Moshi.toJson(data: T?): String {
     val adapter: JsonAdapter<T> = adapter(T::class.java)
     return adapter.toJson(data)
 }

@@ -19,12 +19,6 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
 
     private val clickSubject = PublishSubject.create<String>()
 
-    init {
-        (1..10).mapTo(friends) {
-            User("$it", "Shivam $it")
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): FriendsHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_friends, parent,
                 false)
@@ -36,14 +30,16 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return friends.size
     }
 
-    fun updateTransactions(users: MutableList<User>) {
-
+    fun updateUserFriends(users: List<User>) {
+        this.friends.clear()
+        this.friends.addAll(users)
+        notifyDataSetChanged()
     }
 
-    fun getFriendCickedEvent() = clickSubject
+    fun getFriendClickedEvent(): PublishSubject<String> = clickSubject
 
     inner class FriendsHolder(view: View) : RecyclerView.ViewHolder(view) {
 

@@ -10,17 +10,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".features.home.HomeActivity">
+        <activity
+            android:name=".features.home.HomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.login.LoginActivity" />
-        <activity android:name=".features.addexpense.AddExpenseActivity" />
-        <activity android:name=".features.friendexpenses.FriendExpensesActivity" />
-        <activity android:name=".features.addexpense.FriendsSelectionActivity" />
+        <activity
+            android:name=".features.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.addexpense.AddShowShowExpenseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.friendexpenses.FriendExpensesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.addexpense.FriendsSelectionActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

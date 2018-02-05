@@ -29,7 +29,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rbTake"
+                    android:id="@+id/rbLent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rb_bg_green"
@@ -40,12 +40,12 @@
                     android:paddingEnd="@dimen/dimen_32"
                     android:paddingStart="@dimen/dimen_32"
                     android:paddingTop="@dimen/dimen_8"
-                    android:text="@string/take"
+                    android:text="@string/lent"
                     android:textColor="@drawable/rb_text_color_white_grey"
                     android:textStyle="bold" />
 
                 <RadioButton
-                    android:id="@+id/rbGive"
+                    android:id="@+id/rbBorrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_48"
@@ -57,7 +57,7 @@
                     android:paddingEnd="@dimen/dimen_32"
                     android:paddingStart="@dimen/dimen_32"
                     android:paddingTop="@dimen/dimen_8"
-                    android:text="@string/give"
+                    android:text="@string/borrow"
                     android:textColor="@drawable/rb_text_color_white_grey"
                     android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_16"
-                android:text="\u20b92000"
+                android:text="\u20b9NA"
                 android:textColor="@color/green"
                 android:textSize="@dimen/font_16"
                 android:textStyle="bold" />

@@ -17,7 +17,7 @@ class UserHelper @Inject constructor(private val prefHelper: PrefHelper,
 
     private val USER_INFO_KEY = "user_info"
 
-    fun saveUser(user: User) {
+    fun saveUser(user: User?) {
         val userJson = moshiHelper.getMoshi().toJson(user)
         prefHelper.putString(USER_INFO_KEY, userJson)
     }

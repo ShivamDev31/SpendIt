@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.shivamdev.spendit.R
 import com.shivamdev.spendit.common.base.BaseFragment
 import com.shivamdev.spendit.common.constants.USER_ID
+import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.di.component.FragmentComponent
 import com.shivamdev.spendit.features.friendexpenses.FriendExpensesActivity
 import com.shivamdev.spendit.features.friends.adapter.FriendsAdapter
@@ -21,6 +22,7 @@ class FriendsFragment : BaseFragment<FriendsPresenter>(), FriendsView {
     override fun initView() {
         setupRecyclerView()
         setupFriendClickListener()
+        presenter.getUserFriends()
     }
 
     private fun setupRecyclerView() {
@@ -31,8 +33,12 @@ class FriendsFragment : BaseFragment<FriendsPresenter>(), FriendsView {
         rvFriends.adapter = adapter
     }
 
+    override fun showUserFriends(users: List<User>?) {
+        adapter.updateUserFriends(users!!)
+    }
+
     private fun setupFriendClickListener() {
-        adapter.getFriendCickedEvent()
+        adapter.getFriendClickedEvent()
                 .subscribe { friendId ->
                     val intent = Intent(activity, FriendExpensesActivity::class.java)
                     intent.putExtra(USER_ID, friendId)

@@ -32,7 +32,7 @@ open class BasePresenter<T : BaseView> : Presenter<T> {
         if (!isViewAttached) throw MvpViewNotAttachedException()
     }
 
-    fun addSubscription(disposable: Disposable) {
+    fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
 

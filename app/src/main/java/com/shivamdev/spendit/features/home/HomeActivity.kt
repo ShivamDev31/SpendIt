@@ -4,7 +4,7 @@ import android.support.design.widget.BottomNavigationView
 import com.shivamdev.spendit.R
 import com.shivamdev.spendit.common.base.BaseActivity
 import com.shivamdev.spendit.di.component.ActivityComponent
-import com.shivamdev.spendit.features.addexpense.AddExpenseActivity
+import com.shivamdev.spendit.features.addexpense.AddShowShowExpenseActivity
 import com.shivamdev.spendit.features.expenses.ExpensesFragment
 import com.shivamdev.spendit.features.friends.FriendsFragment
 import com.shivamdev.spendit.features.login.LoginActivity
@@ -28,7 +28,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
         replaceFragment(R.id.llHomeFragment, ExpensesFragment.newInstance(),
                 TRANSACTIONS_FRAGMENT_TAG)
         fabAddExpense.setOnClickListener {
-            activityStarter<AddExpenseActivity>()
+            activityStarter<AddShowShowExpenseActivity>()
         }
     }
 

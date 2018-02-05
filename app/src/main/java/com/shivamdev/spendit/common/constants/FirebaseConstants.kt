@@ -5,3 +5,4 @@ package com.shivamdev.spendit.common.constants
  */
 
 const val USER_TABLE = "users"
+const val USER_BALANCE_TABLE = "user_balance"

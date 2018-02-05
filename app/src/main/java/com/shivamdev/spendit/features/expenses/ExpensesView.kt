@@ -8,5 +8,6 @@ import com.shivamdev.spendit.data.models.Expense
  */
 interface ExpensesView : BaseView {
     fun updateUserExpenses(expenses: MutableList<Expense>) {}
+    fun updateUserBalance(balance: Int)
 
 }

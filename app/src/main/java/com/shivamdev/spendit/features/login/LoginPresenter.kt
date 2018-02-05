@@ -22,8 +22,8 @@ class LoginPresenter @Inject constructor(private val firebaseHelper: FirebaseHel
     private fun updateUsersTable() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val user = User(firebaseUser?.uid, firebaseUser?.displayName)
-        firebaseHelper.updateUser(user)
         updateLocalPreferences(user)
+        firebaseHelper.updateUser(user)
     }
 
     private fun updateLocalPreferences(user: User) {

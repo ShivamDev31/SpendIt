@@ -8,7 +8,7 @@ import com.shivamdev.spendit.common.base.BaseFragment
 import com.shivamdev.spendit.common.constants.EXPENSE
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.di.component.FragmentComponent
-import com.shivamdev.spendit.features.addexpense.AddExpenseActivity
+import com.shivamdev.spendit.features.addexpense.AddShowShowExpenseActivity
 import com.shivamdev.spendit.features.expenses.adapter.ExpensesAdapter
 import kotlinx.android.synthetic.main.fragment_expenses.*
 
@@ -23,21 +23,27 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
         setupRadioButtons()
         setupRecyclerView()
         presenter.getExpensesData()
+        presenter.getUserLentBalance()
         setupExpenseClickListener()
     }
 
     private fun setupRadioButtons() {
         rgGiveTake.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.rbTake -> {
+                R.id.rbLent -> {
                     tvBalance.setTextColor(resources.getColor(R.color.green))
-                    presenter.getUserTakeBalance()
+                    presenter.getUserLentBalance()
                 }
-                R.id.rbGive -> {
+                R.id.rbBorrow -> {
                     tvBalance.setTextColor(resources.getColor(R.color.red))
+                    presenter.getUserBorrowBalance()
                 }
             }
         }
+    }
+
+    override fun updateUserBalance(balance: Int) {
+        tvBalance.text = getString(R.string.rupee_amount_int, balance)
     }
 
     private fun setupRecyclerView() {
@@ -55,7 +61,7 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
     private fun setupExpenseClickListener() {
         adapter.getClickEvent()
                 .subscribe { expense ->
-                    val intent = Intent(activity, AddExpenseActivity::class.java)
+                    val intent = Intent(activity, AddShowShowExpenseActivity::class.java)
                     intent.putExtra(EXPENSE, expense)
                     activity?.startActivity(intent)
                 }

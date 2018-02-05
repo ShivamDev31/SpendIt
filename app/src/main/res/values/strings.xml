@@ -33,4 +33,6 @@
     <string name="expenses_split_up">Expenses split up</string>
     <string name="friend_expenses">Friend expenses</string>
     <string name="your_own_money_splitter">Your own Money Splitter</string>
+    <string name="lent">Lent</string>
+    <string name="borrow">Borrow</string>
 </resources>

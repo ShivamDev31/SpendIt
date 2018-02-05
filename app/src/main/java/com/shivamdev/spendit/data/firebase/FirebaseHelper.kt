@@ -3,6 +3,10 @@ package com.shivamdev.spendit.data.firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shivamdev.spendit.common.constants.USER_TABLE
 import com.shivamdev.spendit.data.models.User
+import com.shivamdev.spendit.utils.getObservable
+import com.shivamdev.spendit.utils.mergeDocument
+import io.reactivex.Completable
+import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,20 +17,16 @@ import javax.inject.Singleton
 @Singleton
 class FirebaseHelper @Inject constructor(private val firestore: FirebaseFirestore) {
 
-    fun help() {
-
+    fun updateUser(user: User): Completable {
+        return firestore.collection(USER_TABLE).document("${user.userId}").mergeDocument(user)
     }
 
-    fun updateUser(user: User) {
-        firestore.collection(USER_TABLE).document("${user.userId}").set(user)
+    fun getUserDetails(userId: String): Observable<User> {
+        return firestore.collection(USER_TABLE).document(userId).getObservable()
     }
 
-    fun getUserData(uid: String): User {
-        lateinit var user: User
-        firestore.collection(USER_TABLE).document(uid).addSnapshotListener { snapshot, _ ->
-            user = snapshot.toObject(User::class.java)
-        }
-        return user
+    fun getAllUsers(): Observable<List<User>> {
+        return firestore.collection(USER_TABLE).getObservable()
     }
 
 }

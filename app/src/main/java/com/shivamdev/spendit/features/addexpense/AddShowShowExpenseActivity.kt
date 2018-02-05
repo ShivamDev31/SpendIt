@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by shivam on 01/02/18.
  */
-class AddExpenseActivity : BaseActivity<AddExpensePresenter>(), AddExpenseView {
+class AddShowShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowExpenseView {
 
     private val FRIEND_SELECTION_REQUEST_CODE = 9001
 
@@ -47,10 +47,15 @@ class AddExpenseActivity : BaseActivity<AddExpensePresenter>(), AddExpenseView {
     }
 
     private fun expenseDetailsFlow() {
-        etExpenseAmount.setText(expense?.amount.toString())
-        etExpenseAmount.isEnabled = false
-        etExpensePurpose.setText(expense?.purpose)
-        etExpensePurpose.isEnabled = false
+        etExpenseAmount.apply {
+            setText(expense?.amount.toString())
+            isEnabled = false
+        }
+        etExpensePurpose.apply {
+            setText(expense?.purpose)
+            isEnabled = false
+        }
+
         tvPayer.text = expense?.payer
         tvPayerInitials.text = expense?.payer?.initials()
         tvPayerPaidAmount.text = getString(R.string.rupee_amount_int, expense?.amount)
@@ -120,8 +125,11 @@ class AddExpenseActivity : BaseActivity<AddExpensePresenter>(), AddExpenseView {
             userNames.append("${selectedUser.name}, ")
         }
 
-        tvSelectedFriends.clear()
-        tvSelectedFriends.text = userNames
+        tvSelectedFriends.apply {
+            clear()
+            text = userNames
+        }
+
     }
 
     override val layout: Int = R.layout.activity_add_expense
