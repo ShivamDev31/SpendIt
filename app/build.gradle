@@ -34,6 +34,27 @@ android {
         }
     }
 
+    sourceSets {
+        def commonTestDir = 'src/commonTest/java'
+        test {
+            java.srcDir commonTestDir
+        }
+        androidTest {
+            java.srcDir commonTestDir
+        }
+    }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -65,6 +86,10 @@ dependencies {
     androidTestImplementation androidTestsLibs
     testImplementation unitTestLibs
     androidTestImplementation androidTestsLibs
+}
+
+tasks.matching { it instanceof Test }.all {
+    testLogging.events = ["failed", "passed", "skipped"]
 }
 
 apply plugin: 'com.google.gms.google-services'

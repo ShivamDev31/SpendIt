@@ -11,8 +11,8 @@ import javax.inject.Inject
 /**
  * Created by shivam on 03/02/18.
  */
-class FriendsSelectionPresenter @Inject constructor(private val userHelper: UserHelper,
-                                                    private val firebaseHelper: FirebaseHelper)
+class FriendsSelectionPresenter @Inject constructor(private val firebaseHelper: FirebaseHelper,
+                                                    private val userHelper: UserHelper)
     : BasePresenter<FriendsSelectionView>() {
 
     fun getUserData(selectedUsers: ArrayList<User>?) {
@@ -22,13 +22,13 @@ class FriendsSelectionPresenter @Inject constructor(private val userHelper: User
                 .compose(transformObservable())
                 .subscribe({ users ->
                     val friends = users.filter { it.userId != currentUser.userId }.toMutableList()
-                    selectedAlreadySelectedUsers(friends, selectedUsers)
+                    checkAlreadySelectedUsers(friends, selectedUsers)
                 }, { Timber.e(it) })
 
         addDisposable(disp)
     }
 
-    private fun selectedAlreadySelectedUsers(friends: MutableList<User>, selectedUsers: ArrayList<User>?) {
+    private fun checkAlreadySelectedUsers(friends: MutableList<User>, selectedUsers: ArrayList<User>?) {
         val checkedFriends = mutableListOf<User>()
         friends.forEach { friend ->
             selectedUsers?.forEach { user ->

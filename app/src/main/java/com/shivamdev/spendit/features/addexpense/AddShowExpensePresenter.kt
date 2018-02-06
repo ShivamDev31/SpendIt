@@ -14,8 +14,8 @@ import javax.inject.Inject
 /**
  * Created by shivam on 01/02/18.
  */
-class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHelper,
-                                                  private val firebaseHelper: FirebaseHelper)
+class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: FirebaseHelper,
+                                                  private val userHelper: UserHelper)
     : BasePresenter<AddShowExpenseView>() {
 
     fun getUsername() {

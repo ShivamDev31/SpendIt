@@ -177,14 +177,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dimen_8"
-                android:layout_marginTop="@dimen/dimen_12"
-                app:cardElevation="@dimen/dimen_8">
+                android:layout_marginTop="@dimen/dimen_12">
 
                 <LinearLayout
                     android:id="@+id/llFriendsSelection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_4"
+                    android:layout_marginBottom="@dimen/dimen_8"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:layout_marginLeft="@dimen/dimen_8"
                     android:layout_marginRight="@dimen/dimen_8"
@@ -224,6 +223,7 @@
                 style="@style/CtaButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8"
                 android:layout_marginLeft="@dimen/dimen_8"
                 android:layout_marginRight="@dimen/dimen_8"
                 android:layout_marginTop="@dimen/dimen_48"

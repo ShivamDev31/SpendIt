@@ -22,7 +22,10 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
                 .compose(transformObservable())
                 .subscribe({
                     sortExpensesBasedOnFriends(it, friendId)
-                }, { Timber.e(it) })
+                }, {
+                    Timber.e(it)
+                    view?.hideLoader()
+                })
     }
 
     private fun sortExpensesBasedOnFriends(expenses: List<Expense>?, friendId: String) {
@@ -44,5 +47,6 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
         view?.showFriendExpenses(friendExpenses)
         view?.hideLoader()
     }
+
 
 }

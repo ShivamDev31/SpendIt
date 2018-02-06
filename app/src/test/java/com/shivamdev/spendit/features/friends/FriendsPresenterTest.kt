@@ -3,7 +3,10 @@ package com.shivamdev.spendit.features.friends
 import com.nhaarman.mockito_kotlin.verify
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
-import com.shivamdev.spendit.data.models.User
+import com.shivamdev.spendit.dummy.getFilteredUsers
+import com.shivamdev.spendit.dummy.getUnCommonUser
+import com.shivamdev.spendit.dummy.getUser
+import com.shivamdev.spendit.dummy.getUsers
 import com.shivamdev.spendit.utils.RxSchedulersOverrideRule
 import io.reactivex.Observable
 import org.junit.After
@@ -35,9 +38,6 @@ class FriendsPresenterTest {
     @Mock
     private lateinit var view: FriendsView
 
-    @Mock
-    private lateinit var users: List<User>
-
     private var presenter: FriendsPresenter? = null
 
     @Before
@@ -47,11 +47,21 @@ class FriendsPresenterTest {
     }
 
     @Test
-    fun testGettingFriendsFromFirebaseSuccess() {
-        val usersObservable = Observable.just(users)
+    fun testGettingFriendsFromFirebaseWithoutFilter() {
+        val usersObservable = Observable.just(getUsers())
+        `when`(userHelper.getUser()).thenReturn(getUnCommonUser())
         `when`(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
         presenter?.getUserFriends()
-        verify(view).showUserFriends(users)
+        verify(view).showUserFriends(getUsers())
+    }
+
+    @Test
+    fun testGettingFriendsFromFirebaseWithFilter() {
+        val usersObservable = Observable.just(getUsers())
+        `when`(userHelper.getUser()).thenReturn(getUser())
+        `when`(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
+        presenter?.getUserFriends()
+        verify(view).showUserFriends(getFilteredUsers())
     }
 
     @After
