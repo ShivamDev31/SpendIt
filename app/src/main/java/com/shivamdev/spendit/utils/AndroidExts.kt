@@ -1,11 +1,13 @@
 package com.shivamdev.spendit.utils
 
+import android.app.Activity
 import android.content.Context
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -59,4 +61,9 @@ fun EditText.onTextChange(textChanged: (String) -> Unit) {
         }
 
     })
+}
+
+fun Activity.hideKeyboard() {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
 }

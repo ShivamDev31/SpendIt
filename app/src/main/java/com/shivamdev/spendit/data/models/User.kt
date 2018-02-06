@@ -19,4 +19,16 @@ data class User(val userId: String? = "",
                 var checked: Boolean = false,
                 @Exclude var userAmount: Int? = 0,
                 val timeStamp: Long = Date().time)
-    : Parcelable
+    : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        val user = other as User
+        if (this.userId == user.userId) {
+            return true
+        }
+        return super.equals(other)
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+}

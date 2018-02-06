@@ -117,11 +117,6 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
     }
 
     fun showSelectFriendsActivity(amountPaid: Int) {
-        /*if (amountPaid <= 0) {
-            view?.showEnterAmountFirstError()
-        } else {
-            view?.showSelectFriendsActivity()
-        }*/
         view?.showSelectFriendsActivity()
     }
 

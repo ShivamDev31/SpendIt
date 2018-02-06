@@ -23,7 +23,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
 
     override fun initView() {
         presenter.checkUserLogin()
-        setupToolbar(toolbar, showBack = false)
+        setupToolbar(toolbar, getString(R.string.expenses), false)
         homeBottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         replaceFragment(R.id.llHomeFragment, ExpensesFragment.newInstance(),
                 TRANSACTIONS_FRAGMENT_TAG)
@@ -51,6 +51,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
         when (item.itemId) {
             R.id.navigation_home -> {
                 replaceFragment(R.id.llHomeFragment, ExpensesFragment.newInstance(), TRANSACTIONS_FRAGMENT_TAG)
+                setupToolbar(toolbar, getString(R.string.expenses), false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
