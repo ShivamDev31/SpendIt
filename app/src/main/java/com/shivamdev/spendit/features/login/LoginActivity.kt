@@ -94,6 +94,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
 
     override fun startHomeActivity() {
         activityStarter<HomeActivity>()
+        finish()
     }
 
     override val layout: Int = R.layout.activity_login
