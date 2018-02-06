@@ -59,7 +59,7 @@ class AddShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowE
             presenter.showSelectFriendsActivity()
         }
 
-        setupTextValues()
+        setupPayerName()
         setupExpenseAmount()
         saveExpense()
     }
@@ -102,7 +102,7 @@ class AddShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowE
         expense = intent.getParcelableExtra(EXPENSE)
     }
 
-    private fun setupTextValues() {
+    private fun setupPayerName() {
         presenter.getUsername()
     }
 
