@@ -29,6 +29,7 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
                 .subscribe({
                     userHelper.saveUser(it)
                 }, { Timber.e(it) })
+        addDisposable(disp)
     }
 
     fun logoutUser() {

@@ -26,6 +26,14 @@ android {
         javaMaxHeapSize "8g"
     }
 
+    android {
+        testOptions {
+            unitTests.all {
+                jvmArgs '-noverify'
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
