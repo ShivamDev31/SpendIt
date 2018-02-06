@@ -116,7 +116,7 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
         view?.showSelectedFriendsOnUi(selectedFriends)
     }
 
-    fun showSelectFriendsActivity(amountPaid: Int) {
+    fun showSelectFriendsActivity() {
         view?.showSelectFriendsActivity()
     }
 

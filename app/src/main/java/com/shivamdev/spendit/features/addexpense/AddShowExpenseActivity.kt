@@ -56,7 +56,7 @@ class AddShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowE
 
     private fun addExpenseFlow() {
         llFriendsSelection.setOnClickListener {
-            presenter.showSelectFriendsActivity(amountPaid)
+            presenter.showSelectFriendsActivity()
         }
 
         setupTextValues()
