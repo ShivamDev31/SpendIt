@@ -11,9 +11,9 @@ import com.shivamdev.spendit.common.base.BaseActivity
 import com.shivamdev.spendit.common.constants.SELECTED_USERS
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.di.component.ActivityComponent
+import com.shivamdev.spendit.exts.longToast
+import com.shivamdev.spendit.exts.setupToolbar
 import com.shivamdev.spendit.features.addexpense.adapter.FriendsSelectionAdapter
-import com.shivamdev.spendit.utils.longToast
-import com.shivamdev.spendit.utils.setupToolbar
 import kotlinx.android.synthetic.main.activity_friends_selection.*
 import kotlinx.android.synthetic.main.toolbar.*
 

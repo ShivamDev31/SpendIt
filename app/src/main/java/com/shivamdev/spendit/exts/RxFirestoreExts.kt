@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.utils
+package com.shivamdev.spendit.exts
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*

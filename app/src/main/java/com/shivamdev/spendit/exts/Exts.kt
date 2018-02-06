@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.utils
+package com.shivamdev.spendit.exts
 
 import com.shivamdev.spendit.data.models.User
 import com.squareup.moshi.JsonAdapter

@@ -11,8 +11,8 @@ import com.shivamdev.spendit.common.constants.SELECTED_USERS
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.di.component.ActivityComponent
+import com.shivamdev.spendit.exts.*
 import com.shivamdev.spendit.features.addexpense.adapter.SelectedFriendsAdapter
-import com.shivamdev.spendit.utils.*
 import kotlinx.android.synthetic.main.activity_add_expense.*
 import kotlinx.android.synthetic.main.progress_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -88,7 +88,7 @@ class AddShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowE
         tvPayer.text = expense?.name
         tvPayerInitials.text = expense?.name?.initials()
         tvPayerPaidAmount.text = getString(R.string.rupee_amount_int, expense?.amount)
-        presenter.filterFriends(expense?.friends, expense?.amountPerUser)
+        presenter.filterFriends(expense!!, expense?.amountPerUser)
         bSaveExpense.hide()
     }
 

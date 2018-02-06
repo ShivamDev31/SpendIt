@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.utils
+package com.shivamdev.spendit.exts
 
 import android.view.View
 

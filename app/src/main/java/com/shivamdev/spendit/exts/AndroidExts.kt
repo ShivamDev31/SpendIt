@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.utils
+package com.shivamdev.spendit.exts
 
 import android.app.Activity
 import android.content.Context

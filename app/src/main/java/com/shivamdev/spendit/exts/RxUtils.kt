@@ -1,5 +1,6 @@
-package com.shivamdev.spendit.utils
+package com.shivamdev.spendit.exts
 
+import io.reactivex.CompletableTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,6 +19,13 @@ fun <T> transformSingle(): SingleTransformer<T, T> {
 
 fun <T> transformObservable(): ObservableTransformer<T, T> {
     return ObservableTransformer {
+        it.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+}
+
+fun <T> transformCompletable(): CompletableTransformer {
+    return CompletableTransformer {
         it.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

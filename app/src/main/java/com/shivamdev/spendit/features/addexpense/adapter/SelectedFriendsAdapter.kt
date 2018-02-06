@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.shivamdev.spendit.R
 import com.shivamdev.spendit.data.models.User
-import com.shivamdev.spendit.utils.initials
+import com.shivamdev.spendit.exts.initials
 import kotlinx.android.synthetic.main.item_selected_friends.view.*
 
 /**

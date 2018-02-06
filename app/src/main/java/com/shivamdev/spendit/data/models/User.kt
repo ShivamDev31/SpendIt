@@ -3,6 +3,7 @@ package com.shivamdev.spendit.data.models
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.IgnoreExtraProperties
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -11,12 +12,13 @@ import java.util.*
  */
 
 @SuppressLint("ParcelCreator")
+@IgnoreExtraProperties
 @Parcelize
 data class User(val userId: String? = "",
                 val name: String? = "",
                 var userLent: Int = 0,
                 var userBorrow: Int = 0,
-                var checked: Boolean = false,
+                @Exclude var checked: Boolean = false,
                 @Exclude var userAmount: Int? = 0,
                 val timeStamp: Long = Date().time)
     : Parcelable {

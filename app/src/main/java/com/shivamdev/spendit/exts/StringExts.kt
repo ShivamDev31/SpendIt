@@ -1,4 +1,4 @@
-package com.shivamdev.spendit.utils
+package com.shivamdev.spendit.exts
 
 /**
  * Created by shivam on 02/02/18.
