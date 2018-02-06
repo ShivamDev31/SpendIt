@@ -55,6 +55,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
             }
             R.id.navigation_dashboard -> {
                 replaceFragment(R.id.llHomeFragment, FriendsFragment.newInstance(), FRIENDS_FRAGMENT_TAG)
+                setupToolbar(toolbar, getString(R.string.friends), false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {

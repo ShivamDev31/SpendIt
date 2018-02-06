@@ -55,8 +55,8 @@ class FriendsSelectionAdapter : RecyclerView.Adapter<FriendsSelectionAdapter.Fri
                             }
                             user.checked = checked
                         } else {
-                            removeFriendSubject.onNext(user)
                             user.checked = checked
+                            removeFriendSubject.onNext(user)
                         }
                     }
         }

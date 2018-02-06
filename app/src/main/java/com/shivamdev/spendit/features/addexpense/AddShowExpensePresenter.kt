@@ -7,7 +7,6 @@ import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.utils.filterAndRemoveUser
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -90,14 +89,40 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
         return expenseFriendsMap
     }
 
-    fun filterFriends(friends: Map<String, String>?) {
+    fun filterFriends(friends: Map<String, String>?, amountPerUser: Int?) {
         val users = mutableListOf<User>()
         for ((userId, name) in friends!!) {
-            val user = User(userId, name)
+            val user = User(userId, name, userAmount = amountPerUser)
             users.add(user)
         }
         users.filterAndRemoveUser(userHelper.getUser().userId!!)
         view?.updateFilteredUsers(users)
+    }
+
+    fun friendsSelected(selectedUsers: ArrayList<User>, amountPaid: Int) {
+        if (selectedUsers.isEmpty()) {
+            return
+        }
+        val amountPerUser: Int = if (amountPaid <= 0) {
+            0
+        } else {
+            amountPaid / (selectedUsers.size + 1)
+        }
+        val selectedFriends = mutableListOf<User>()
+        selectedUsers.forEach {
+            it.userAmount = amountPerUser
+            selectedFriends.add(it)
+        }
+        view?.showSelectedFriendsOnUi(selectedFriends)
+    }
+
+    fun showSelectFriendsActivity(amountPaid: Int) {
+        /*if (amountPaid <= 0) {
+            view?.showEnterAmountFirstError()
+        } else {
+            view?.showSelectFriendsActivity()
+        }*/
+        view?.showSelectFriendsActivity()
     }
 
 }

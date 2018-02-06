@@ -39,4 +39,5 @@
     <string name="no_expenses_found">No expenses found, please add an expense</string>
     <string name="selected_friends">Selected Friends</string>
     <string name="rupee_na">₹NA</string>
+    <string name="enter_amount_first_error">Please enter the amount first</string>
 </resources>

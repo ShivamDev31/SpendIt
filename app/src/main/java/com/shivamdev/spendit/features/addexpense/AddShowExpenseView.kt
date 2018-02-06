@@ -14,5 +14,7 @@ interface AddShowExpenseView : BaseView {
     fun expenseSaved()
     fun showLoader()
     fun updateFilteredUsers(users: MutableList<User>)
-
+    fun showSelectedFriendsOnUi(selectedFriends: MutableList<User>)
+    fun showEnterAmountFirstError()
+    fun showSelectFriendsActivity()
 }
