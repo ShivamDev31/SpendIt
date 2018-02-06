@@ -29,7 +29,7 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
         val friendExpenses = mutableListOf<Expense>()
         val currentUser = userHelper.getUser().userId
         expenses?.forEach {
-            for ((userId, name) in it.friends) {
+            for ((userId, _) in it.friends) {
                 if (currentUser == it.userId) {
                     it.owingText = "You lent"
                 } else {
