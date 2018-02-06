@@ -11,11 +11,11 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.shivamdev.spendit.R
 import com.shivamdev.spendit.common.base.BaseActivity
 import com.shivamdev.spendit.di.component.ActivityComponent
+import com.shivamdev.spendit.exts.activityStarter
+import com.shivamdev.spendit.exts.hide
+import com.shivamdev.spendit.exts.shortToast
+import com.shivamdev.spendit.exts.show
 import com.shivamdev.spendit.features.home.HomeActivity
-import com.shivamdev.spendit.utils.activityStarter
-import com.shivamdev.spendit.utils.hide
-import com.shivamdev.spendit.utils.shortToast
-import com.shivamdev.spendit.utils.show
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.progress_layout.*
 import timber.log.Timber
@@ -79,7 +79,6 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Timber.i("signInWithCredential:success")
-                        //val user = firebaseAuth.currentUser
                         presenter.signInSuccess()
                     } else {
                         // If sign in fails, display a message to the user.

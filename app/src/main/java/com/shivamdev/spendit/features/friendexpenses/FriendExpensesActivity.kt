@@ -9,11 +9,11 @@ import com.shivamdev.spendit.common.constants.EXPENSE
 import com.shivamdev.spendit.common.constants.USER_ID
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.di.component.ActivityComponent
+import com.shivamdev.spendit.exts.hide
+import com.shivamdev.spendit.exts.setupToolbar
+import com.shivamdev.spendit.exts.show
 import com.shivamdev.spendit.features.addexpense.AddShowExpenseActivity
 import com.shivamdev.spendit.features.friendexpenses.adapter.FriendExpensesAdapter
-import com.shivamdev.spendit.utils.hide
-import com.shivamdev.spendit.utils.setupToolbar
-import com.shivamdev.spendit.utils.show
 import kotlinx.android.synthetic.main.activity_friend_details.*
 import kotlinx.android.synthetic.main.progress_layout.*
 import kotlinx.android.synthetic.main.toolbar.*

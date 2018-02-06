@@ -3,7 +3,7 @@ package com.shivamdev.spendit.features.friends
 import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
-import com.shivamdev.spendit.utils.transformObservable
+import com.shivamdev.spendit.exts.transformObservable
 import timber.log.Timber
 import javax.inject.Inject
 

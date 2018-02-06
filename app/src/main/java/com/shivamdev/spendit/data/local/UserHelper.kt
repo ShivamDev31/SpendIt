@@ -2,8 +2,8 @@ package com.shivamdev.spendit.data.local
 
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.data.network.MoshiHelper
-import com.shivamdev.spendit.utils.fromJson
-import com.shivamdev.spendit.utils.toJson
+import com.shivamdev.spendit.exts.fromJson
+import com.shivamdev.spendit.exts.toJson
 import javax.inject.Inject
 import javax.inject.Singleton
 

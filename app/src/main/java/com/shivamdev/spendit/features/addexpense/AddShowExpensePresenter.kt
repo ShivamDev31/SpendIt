@@ -5,9 +5,10 @@ import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.data.models.User
-import com.shivamdev.spendit.utils.filterAndRemoveUser
+import com.shivamdev.spendit.exts.filterAndRemoveUser
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -54,19 +55,22 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
 
         val expense = Expense(payer.userId!!, payer.name!!, amountPaid, purpose!!, amountPerUser,
                 getExpenseFriendsMap(selectedUsers))
-        selectedUsers.forEach {
-            it.checked = false
-            updateUserBalance(it, expense)
-            updateUserExpense(it.userId!!, expense)
-        }
 
+        updateUserExpense(selectedUsers, expense)
     }
 
-    private fun updateUserExpense(userId: String, expense: Expense) {
-        val disp = firebaseHelper.addExpense(userId, expense)
-                .doOnComplete { view?.expenseSaved() }
-                .subscribe({ Timber.i("Expense added successfully") },
-                        { Timber.e(it) })
+    private fun updateUserExpense(users: ArrayList<User>, expense: Expense) {
+        val disp =
+                Observable.fromIterable(users)
+                        .concatMapCompletable {
+                            it.checked = false
+                            updateUserBalance(it, expense)
+                            firebaseHelper.addExpense(it.userId!!, expense)
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete { view?.expenseSaved() }
+                        .subscribe({ Timber.i("Expense added successfully") },
+                                { Timber.e(it) })
         addDisposable(disp)
     }
 
@@ -74,7 +78,7 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
         if (user.userId == expense.userId) {
             user.userLent += (expense.amountPerUser * (expense.friends.size - 1))
         } else {
-            user.userBorrow += (expense.amountPerUser * (expense.friends.size - 1))
+            user.userBorrow += expense.amountPerUser
         }
         val disp = firebaseHelper.updateUser(user)
                 .subscribe({ Timber.i("Expense added successfully") },
@@ -90,14 +94,35 @@ class AddShowExpensePresenter @Inject constructor(private val userHelper: UserHe
         return expenseFriendsMap
     }
 
-    fun filterFriends(friends: Map<String, String>?) {
+    fun filterFriends(expense: Expense, amountPerUser: Int?) {
         val users = mutableListOf<User>()
-        for ((userId, name) in friends!!) {
-            val user = User(userId, name)
+        for ((userId, name) in expense.friends) {
+            val user = User(userId, name, userAmount = amountPerUser)
             users.add(user)
         }
-        users.filterAndRemoveUser(userHelper.getUser().userId!!)
+        users.filterAndRemoveUser(expense.userId)
         view?.updateFilteredUsers(users)
+    }
+
+    fun friendsSelected(selectedUsers: ArrayList<User>, amountPaid: Int) {
+        if (selectedUsers.isEmpty()) {
+            return
+        }
+        val amountPerUser: Int = if (amountPaid <= 0) {
+            0
+        } else {
+            amountPaid / (selectedUsers.size + 1)
+        }
+        val selectedFriends = mutableListOf<User>()
+        selectedUsers.forEach {
+            it.userAmount = amountPerUser
+            selectedFriends.add(it)
+        }
+        view?.showSelectedFriendsOnUi(selectedFriends)
+    }
+
+    fun showSelectFriendsActivity() {
+        view?.showSelectFriendsActivity()
     }
 
 }

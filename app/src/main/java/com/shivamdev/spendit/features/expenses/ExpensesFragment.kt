@@ -8,10 +8,10 @@ import com.shivamdev.spendit.common.base.BaseFragment
 import com.shivamdev.spendit.common.constants.EXPENSE
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.di.component.FragmentComponent
+import com.shivamdev.spendit.exts.hide
+import com.shivamdev.spendit.exts.show
 import com.shivamdev.spendit.features.addexpense.AddShowExpenseActivity
 import com.shivamdev.spendit.features.expenses.adapter.ExpensesAdapter
-import com.shivamdev.spendit.utils.hide
-import com.shivamdev.spendit.utils.show
 import kotlinx.android.synthetic.main.fragment_expenses.*
 import kotlinx.android.synthetic.main.progress_layout.*
 
@@ -25,13 +25,9 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
     override fun initView() {
         setupRadioButtons()
         setupRecyclerView()
+        presenter.getExpensesData()
         presenter.getUserLentBalance()
         setupExpenseClickListener()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.getExpensesData()
     }
 
     private fun setupRadioButtons() {
@@ -68,6 +64,8 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
     }
 
     override fun updateUserExpenses(expenses: MutableList<Expense>) {
+        rvTransactions.show()
+        tvNoExpenses.hide()
         adapter.updateUserExpenses(expenses)
     }
 
