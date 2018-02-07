@@ -60,15 +60,17 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
     }
 
     private fun updateUserExpense(users: ArrayList<User>, expense: Expense) {
-        val disp =
-                Observable.fromIterable(users)
+        val disp = Observable.fromIterable(users)
                         .concatMapCompletable {
                             it.checked = false
                             updateUserBalance(it, expense)
                             firebaseHelper.addExpense(it.userId!!, expense)
                         }
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete { view?.expenseSaved() }
+                .doOnComplete {
+                    view?.hideLoader()
+                    view?.expenseSaved()
+                }
                         .subscribe({ Timber.i("Expense added successfully") },
                                 { Timber.e(it) })
         addDisposable(disp)

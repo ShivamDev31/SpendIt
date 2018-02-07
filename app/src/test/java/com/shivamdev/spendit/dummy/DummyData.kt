@@ -79,10 +79,11 @@ fun getExpensesWithText(): List<Expense> {
     return expenses
 }
 
-private fun getExpenseFriendsMap(selectedUsers: MutableList<User>): MutableMap<String, String> {
+fun getExpenseFriendsMap(selectedUsers: MutableList<User>): MutableMap<String, String> {
     val expenseFriendsMap = mutableMapOf<String, String>()
     selectedUsers.forEach {
         expenseFriendsMap[it.userId!!] = it.name!!
     }
     return expenseFriendsMap
 }
+

@@ -130,12 +130,15 @@ class AddShowExpenseActivity : BaseActivity<AddShowExpensePresenter>(), AddShowE
 
     override fun expenseSaved() {
         longToast(R.string.expense_saved)
-        progressBar.hide()
         finish()
     }
 
     override fun showLoader() {
         progressBar.show()
+    }
+
+    override fun hideLoader() {
+        progressBar.hide()
     }
 
     override fun showAmountEmptyError() {
