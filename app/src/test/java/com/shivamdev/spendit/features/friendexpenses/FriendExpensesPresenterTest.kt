@@ -1,9 +1,6 @@
 package com.shivamdev.spendit.features.friendexpenses
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.never
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.Expense
@@ -17,7 +14,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -66,7 +62,7 @@ class FriendExpensesPresenterTest {
             it.onError(exception)
         })
 
-        `when`(firebaseHelper.getUserExpenses(USER_ID)).thenReturn(expensesObservable)
+        whenever(firebaseHelper.getUserExpenses(USER_ID)).thenReturn(expensesObservable)
         presenter?.getFriendExpenses(USER_ID)
 
         verify(view).showLoader()
