@@ -25,13 +25,11 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
     }
 
     private fun syncUserData() {
-        val disp = firebaseHelper.getUserDetails(userHelper.getUser().userId!!)
+        compositeDisposable += firebaseHelper.getUserDetails(userHelper.getUser().userId!!)
                 .compose(transformObservable())
                 .subscribe({
                     userHelper.saveUser(it)
                 }, { Timber.e(it) })
-
-        compositeDisposable += disp
     }
 
     fun logoutUser() {

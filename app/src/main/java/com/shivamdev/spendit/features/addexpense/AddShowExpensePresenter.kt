@@ -65,7 +65,7 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
     }
 
     private fun updateUserExpense(users: ArrayList<User>, expense: Expense) {
-        val disp = Observable.fromIterable(users)
+        compositeDisposable += Observable.fromIterable(users)
                 .concatMapCompletable {
                     it.checked = false
                     updateUserBalance(it, expense)
@@ -78,7 +78,6 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
                 }.subscribe({ Timber.i("Expense added successfully") },
                         { Timber.e(it) })
 
-        compositeDisposable += disp
     }
 
     private fun updateUserBalance(user: User, expense: Expense) {
@@ -87,12 +86,10 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
         } else {
             user.userBorrow += expense.amountPerUser
         }
-        val disp = firebaseHelper.updateUser(user)
+        compositeDisposable += firebaseHelper.updateUser(user)
                 .compose(transformCompletable())
                 .subscribe({ Timber.i("Expense added successfully") },
                         { Timber.e(it) })
-
-        compositeDisposable += disp
     }
 
     private fun getExpenseFriendsMap(selectedUsers: ArrayList<User>): MutableMap<String, String> {

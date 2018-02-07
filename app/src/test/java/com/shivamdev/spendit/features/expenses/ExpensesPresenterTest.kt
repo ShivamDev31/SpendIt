@@ -1,5 +1,9 @@
 package com.shivamdev.spendit.features.expenses
 
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.dummy.UNCOMMON_USER_ID
@@ -13,9 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -29,14 +30,17 @@ class ExpensesPresenterTest {
     @Rule
     val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    @Mock
-    private lateinit var firebaseHelper: FirebaseHelper
+    private val userObservable = Observable.just(getUser())
 
-    @Mock
-    private lateinit var userHelper: UserHelper
+    private var firebaseHelper: FirebaseHelper = mock {
+        on { getUserDetails(USER_ID) } doReturn userObservable
+    }
 
-    @Mock
-    private lateinit var view: ExpensesView
+    private var userHelper: UserHelper = mock {
+        on { getUser() } doReturn getUser()
+    }
+
+    private var view: ExpensesView = mock()
 
     private var presenter: ExpensesPresenter? = null
 
@@ -48,18 +52,12 @@ class ExpensesPresenterTest {
 
     @Test
     fun testGetUserLentBalance() {
-        val userObservable = Observable.just(getUser())
-        `when`(userHelper.getUser()).thenReturn(getUser())
-        `when`(firebaseHelper.getUserDetails(USER_ID)).thenReturn(userObservable)
         presenter?.getUserLentBalance()
         verify(view).updateUserBalance(100, 50)
     }
 
     @Test
     fun testGetUserBorrowBalance() {
-        val userObservable = Observable.just(getUser())
-        `when`(userHelper.getUser()).thenReturn(getUser())
-        `when`(firebaseHelper.getUserDetails(USER_ID)).thenReturn(userObservable)
         presenter?.getUserBorrowBalance()
         verify(view).updateUserBalance(50, 50)
     }
@@ -67,8 +65,8 @@ class ExpensesPresenterTest {
     @Test
     fun testGetUserBalanceWhenBorrowIsMoreThanLent() {
         val userObservable = Observable.just(getUnCommonUser())
-        `when`(userHelper.getUser()).thenReturn(getUnCommonUser())
-        `when`(firebaseHelper.getUserDetails(UNCOMMON_USER_ID)).thenReturn(userObservable)
+        whenever(userHelper.getUser()).thenReturn(getUnCommonUser())
+        whenever(firebaseHelper.getUserDetails(UNCOMMON_USER_ID)).thenReturn(userObservable)
         presenter?.getUserLentBalance()
         verify(view).updateUserBalance(50, -50)
     }

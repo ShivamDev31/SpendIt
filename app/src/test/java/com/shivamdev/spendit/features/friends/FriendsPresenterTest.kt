@@ -1,6 +1,9 @@
 package com.shivamdev.spendit.features.friends
 
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.dummy.getFilteredUsers
@@ -14,8 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -29,14 +30,17 @@ class FriendsPresenterTest {
     @Rule
     val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    @Mock
-    private lateinit var firebaseHelper: FirebaseHelper
+    private val usersObservable = Observable.just(getUsers())
 
-    @Mock
-    private lateinit var userHelper: UserHelper
+    private var firebaseHelper: FirebaseHelper = mock {
+        on { getAllUsers() } doReturn usersObservable
+    }
 
-    @Mock
-    private lateinit var view: FriendsView
+    private var userHelper: UserHelper = mock {
+        on { getUser() } doReturn getUser()
+    }
+
+    private var view: FriendsView = mock()
 
     private var presenter: FriendsPresenter? = null
 
@@ -48,18 +52,14 @@ class FriendsPresenterTest {
 
     @Test
     fun testGettingFriendsFromFirebaseWithoutFilter() {
-        val usersObservable = Observable.just(getUsers())
-        `when`(userHelper.getUser()).thenReturn(getUnCommonUser())
-        `when`(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
+        whenever(userHelper.getUser()).thenReturn(getUnCommonUser())
+        whenever(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
         presenter?.getUserFriends()
         verify(view).showUserFriends(getUsers())
     }
 
     @Test
     fun testGettingFriendsFromFirebaseWithFilter() {
-        val usersObservable = Observable.just(getUsers())
-        `when`(userHelper.getUser()).thenReturn(getUser())
-        `when`(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
         presenter?.getUserFriends()
         verify(view).showUserFriends(getFilteredUsers())
     }

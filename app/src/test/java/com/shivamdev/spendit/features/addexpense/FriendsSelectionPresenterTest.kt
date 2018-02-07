@@ -3,13 +3,11 @@ package com.shivamdev.spendit.features.addexpense
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.User
-import com.shivamdev.spendit.dummy.getFilteredUsers
-import com.shivamdev.spendit.dummy.getSelectedUsers
-import com.shivamdev.spendit.dummy.getUnCommonUser
-import com.shivamdev.spendit.dummy.getUsers
+import com.shivamdev.spendit.dummy.*
 import com.shivamdev.spendit.utils.RxSchedulersOverrideRule
 import io.reactivex.Observable
 import org.junit.After
@@ -32,13 +30,14 @@ class FriendsSelectionPresenterTest {
 
     private val usersObservable = Observable.just(getUsers())
 
-    var firebaseHelper: FirebaseHelper = mock {
+    private var firebaseHelper: FirebaseHelper = mock {
         on { getAllUsers() } doReturn usersObservable
     }
-    var userHelper: UserHelper = mock {
+    private var userHelper: UserHelper = mock {
         on { getUser() } doReturn getUnCommonUser()
     }
-    var view: FriendsSelectionView = mock()
+
+    private var view: FriendsSelectionView = mock()
 
     private var presenter: FriendsSelectionPresenter? = null
 
@@ -56,6 +55,9 @@ class FriendsSelectionPresenterTest {
 
     @Test
     fun testGetUserDataWhenCurrentUserIsPresent() {
+        val usersObservable = Observable.just(getUsers())
+        whenever(userHelper.getUser()).thenReturn(getUser())
+        whenever(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
         presenter?.getUserData(getSelectedUsers() as ArrayList)
         verify(view).showUsers(getFilteredUsers().toMutableList())
     }

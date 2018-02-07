@@ -15,15 +15,13 @@ class FriendsPresenter @Inject constructor(private val firebaseHelper: FirebaseH
                                            private val userHelper: UserHelper) : BasePresenter<FriendsView>() {
 
     fun getUserFriends() {
-        val disp = firebaseHelper.getAllUsers()
+        compositeDisposable += firebaseHelper.getAllUsers()
                 .compose(transformObservable())
                 .subscribe({ users ->
                     val friends = users.filter { it.userId != userHelper.getUser().userId }
                             .toMutableList()
                     view?.showUserFriends(friends)
                 }, { Timber.e(it) })
-
-        compositeDisposable += disp
     }
 
 }

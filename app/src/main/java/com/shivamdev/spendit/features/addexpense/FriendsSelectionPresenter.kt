@@ -19,14 +19,13 @@ class FriendsSelectionPresenter @Inject constructor(private val firebaseHelper: 
     fun getUserData(selectedUsers: ArrayList<User>?) {
         val currentUser = userHelper.getUser()
 
-        val disp = firebaseHelper.getAllUsers()
+        compositeDisposable += firebaseHelper.getAllUsers()
                 .compose(transformObservable())
                 .subscribe({ users ->
                     val friends = users.filter { it.userId != currentUser.userId }.toMutableList()
                     checkAlreadySelectedUsers(friends, selectedUsers)
                 }, { Timber.e(it) })
 
-        compositeDisposable += disp
     }
 
     private fun checkAlreadySelectedUsers(friends: MutableList<User>, selectedUsers: ArrayList<User>?) {

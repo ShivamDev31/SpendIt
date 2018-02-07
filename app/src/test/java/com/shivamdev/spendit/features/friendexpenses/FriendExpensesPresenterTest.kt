@@ -1,5 +1,9 @@
 package com.shivamdev.spendit.features.friendexpenses
 
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.verify
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.Expense
@@ -13,8 +17,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -27,14 +30,17 @@ class FriendExpensesPresenterTest {
     @Rule
     val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    @Mock
-    private lateinit var firebaseHelper: FirebaseHelper
+    private val expensesObservable = Observable.just(getExpensesWithText())
 
-    @Mock
-    private lateinit var userHelper: UserHelper
+    private var firebaseHelper: FirebaseHelper = mock {
+        on { getUserExpenses(USER_ID) } doReturn expensesObservable
+    }
 
-    @Mock
-    private lateinit var view: FriendExpensesView
+    private var userHelper: UserHelper = mock {
+        on { getUser() } doReturn getUser()
+    }
+
+    private var view: FriendExpensesView = mock()
 
     private var presenter: FriendExpensesPresenter? = null
 
@@ -46,9 +52,6 @@ class FriendExpensesPresenterTest {
 
     @Test
     fun testGetUserFriendsFromFirebaseSuccess() {
-        val expensesObservable = Observable.just(getExpensesWithText())
-        `when`(firebaseHelper.getUserExpenses(USER_ID)).thenReturn(expensesObservable)
-        `when`(userHelper.getUser()).thenReturn(getUser())
         presenter?.getFriendExpenses(USER_ID)
         verify(view).showLoader()
         verify(view).showFriendExpenses(getExpensesWithText().toMutableList())

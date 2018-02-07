@@ -18,7 +18,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
     : BasePresenter<ExpensesView>() {
 
     fun getUserLentBalance() {
-        val disp = firebaseHelper.getUserDetails(userHelper.getUser().userId!!)
+        compositeDisposable += firebaseHelper.getUserDetails(userHelper.getUser().userId!!)
                 .doOnError({ t: Throwable? ->
                     if (t is NoSuchDocumentException) {
                         val user = userHelper.getUser()
@@ -34,12 +34,10 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                 }, {
                     Timber.e(it)
                 })
-
-        compositeDisposable += disp
     }
 
     fun getUserBorrowBalance() {
-        val disp = firebaseHelper.getUserDetails(userHelper.getUser().userId!!)
+        compositeDisposable += firebaseHelper.getUserDetails(userHelper.getUser().userId!!)
                 .doOnError({ t: Throwable? ->
                     if (t is NoSuchDocumentException) {
                         val user = userHelper.getUser()
@@ -56,12 +54,11 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     Timber.e(it)
                 })
 
-        compositeDisposable += disp
     }
 
     fun getExpensesData() {
         view?.showLoader()
-        val disp = firebaseHelper.getUserExpenses(userHelper.getUser().userId)
+        compositeDisposable += firebaseHelper.getUserExpenses(userHelper.getUser().userId)
                 .compose(transformObservable())
                 .subscribe({
                     if (it.isNotEmpty()) {
@@ -71,8 +68,6 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     }
                     view?.hideLoader()
                 }, { Timber.e(it) })
-
-        compositeDisposable += disp
     }
 
 }

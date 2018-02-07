@@ -5,6 +5,7 @@ import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.exts.transformObservable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
 
     fun getFriendExpenses(friendId: String) {
         view?.showLoader()
-        firebaseHelper.getUserExpenses(userHelper.getUser().userId)
+        compositeDisposable += firebaseHelper.getUserExpenses(userHelper.getUser().userId)
                 .compose(transformObservable())
                 .subscribe({
                     sortExpensesBasedOnFriends(it, friendId)
