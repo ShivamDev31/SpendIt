@@ -3,7 +3,6 @@ package com.shivamdev.spendit.common
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import com.facebook.stetho.Stetho
 import com.shivamdev.spendit.di.component.AppComponent
 import com.shivamdev.spendit.di.component.DaggerAppComponent
 import com.shivamdev.spendit.di.module.AppModule
@@ -27,7 +26,6 @@ open class SpendApp : Application() {
         instance = this
         component = setupDagger()
         Timber.plant(Timber.DebugTree())
-        Stetho.initializeWithDefaults(this)
     }
 
     open fun setupDagger(): AppComponent = DaggerAppComponent

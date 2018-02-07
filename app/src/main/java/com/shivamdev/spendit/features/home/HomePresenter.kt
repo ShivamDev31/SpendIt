@@ -17,7 +17,7 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
     : BasePresenter<HomeView>() {
 
     fun checkUserLogin() {
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = firebaseHelper.getFirebaseUser()
         if (user == null) {
             view?.startLoginActivity()
         } else {
@@ -30,7 +30,7 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
                 .compose(transformObservable())
                 .subscribe({
                     userHelper.saveUser(it)
-                }, { Timber.e(it) })
+                }, Timber::e)
     }
 
     fun logoutUser() {

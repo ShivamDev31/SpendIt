@@ -7,12 +7,7 @@ ext {
             dagger       : '2.14.1',
             rxKotlin     : '2.2.0',
             rxAndroid    : '2.0.1',
-            rxPermissions: '0.9.4@aar',
-            sqlbrite     : '1.1.2',
-            traceur      : '1.0.1',
-            stetho       : '1.5.0',
             timber       : '4.6.0',
-            glide        : '4.4.0',
 
             espresso     : '3.0.1',
             testRunner   : '1.0.1',
@@ -47,27 +42,16 @@ ext {
             firebaseCore: "com.google.firebase:firebase-core:$versions.firebase",
             firebaseAuth: "com.google.firebase:firebase-auth:$versions.firebase",
             googleAuth  : "com.google.android.gms:play-services-auth:$versions.firebase",
-            database    : "com.google.firebase:firebase-firestore:$versions.firebase",
+            firestore    : "com.google.firebase:firebase-firestore:$versions.firebase",
     ]
 
     rxJava = [
             rxKotlin     : "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
             rxAndroid    : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
-            traceur      : "com.tspoon.traceur:traceur:$versions.traceur",
-            rxRermissions: "com.tbruyelle.rxpermissions:rxpermissions:$versions.rxPermissions"
     ]
 
     moshi = [
             moshi: "com.squareup.moshi:moshi-kotlin:$versions.moshi"
-    ]
-
-    onlyDebug = [
-            //chuck : "com.readystatesoftware.chuck:library:1.1.0",
-            stetho: "com.facebook.stetho:stetho:1.5.0"
-    ]
-
-    onlyRelease = [
-            //chuckNoOp   : 'com.readystatesoftware.chuck:library-no-op:1.1.0',
     ]
 
     unitTest = [
@@ -84,14 +68,14 @@ ext {
 
     androidTests = [
             mockitoAndroid    : "org.mockito:mockito-android:$versions.mockito",
-            espressoCore      : "com.android.support.test.espresso:espresso-core:$versions.espresso",
-            espressoContrib   : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
+            //espressoCore      : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+            //espressoContrib   : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
             espressoIntents   : "com.android.support.test.espresso:espresso-intents:$versions.espresso",
             espressoAcc       : "com.android.support.test.espresso:espresso-accessibility:$versions.espresso",
             espressoIdle      : "com.android.support.test.espresso:espresso-idling-resource:$versions.espresso",
             espressoConcurrent: "com.android.support.test.espresso.idling:idling-concurrent:$versions.espresso",
             espressoNetIdle   : "com.android.support.test.espresso.idling:idling-net:$versions.espresso",
-            testRunner        : "com.android.support.test:runner:$versions.testRunner",
+            //testRunner        : "com.android.support.test:runner:$versions.testRunner",
             testRules         : "com.android.support.test:rules:$versions.testRunner",
             rxIdler           : "com.squareup.rx.idler:rx2-idler:$versions.rxIdler",
     ] + mockito
@@ -101,20 +85,14 @@ ext {
     dagger = "com.google.dagger:dagger:$versions.dagger"
     daggerCompiler = "com.google.dagger:dagger-compiler:$versions.dagger"
 
-    glide = "com.github.bumptech.glide:glide:$versions.glide"
-    glideCompiler = "com.github.bumptech.glide:compiler:$versions.glide"
-    glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
-
     supportLibs = supportDeps.values()
     kotlinLibs = kotlinDeps.values()
     firebaseLibs = firebase.values()
     networkLibs = moshi.values()
     rxJavaLibs = rxJava.values()
-    otherLibs = [timber, dagger, glide]
+    otherLibs = [timber, dagger]
 
-    debugLibs = onlyDebug.values()
-    //releaseLibs = onlyRelease.values()
-    annotationProcessorLibs = [daggerCompiler, glideCompiler]
+    annotationProcessorLibs = [daggerCompiler]
 
     unitTestLibs = unitTest.values()
     androidTestsLibs = androidTests.values() + supportLibs

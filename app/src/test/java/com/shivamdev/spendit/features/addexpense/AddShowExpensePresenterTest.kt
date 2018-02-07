@@ -1,14 +1,15 @@
 package com.shivamdev.spendit.features.addexpense
 
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.data.models.User
-import com.shivamdev.spendit.dummy.getExpenseFriendsMap
-import com.shivamdev.spendit.dummy.getUnCommonUser
-import com.shivamdev.spendit.dummy.getUser
-import com.shivamdev.spendit.dummy.getUsers
+import com.shivamdev.spendit.dummy.*
+import com.shivamdev.spendit.exts.filterAndRemoveUser
 import com.shivamdev.spendit.utils.RxSchedulersOverrideRule
 import io.reactivex.Completable
 import org.junit.After
@@ -16,9 +17,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
+import java.util.*
 
 /**
  * Created by shivam on 07/02/18.
@@ -30,14 +30,11 @@ class AddShowExpensePresenterTest {
     @Rule
     val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    @Mock
-    private lateinit var firebaseHelper: FirebaseHelper
+    private var firebaseHelper: FirebaseHelper = mock()
 
-    @Mock
-    private lateinit var userHelper: UserHelper
+    private var userHelper: UserHelper = mock()
 
-    @Mock
-    private lateinit var view: AddShowExpenseView
+    private var view: AddShowExpenseView = mock()
 
     private var presenter: AddShowExpensePresenter? = null
 
@@ -45,7 +42,7 @@ class AddShowExpensePresenterTest {
     fun setUp() {
         presenter = AddShowExpensePresenter(firebaseHelper, userHelper)
         presenter?.attachView(view)
-        `when`(userHelper.getUser()).thenReturn(getUser())
+        whenever(userHelper.getUser()).thenReturn(getUser())
     }
 
     @Test
@@ -73,7 +70,7 @@ class AddShowExpensePresenterTest {
     }
 
     @Test
-    fun checkSubmitUsersExpenses() {
+    fun testSubmitUsersExpenses() {
         val user = getUnCommonUser()
         val amount = 1000
         val purpose = "Purpose"
@@ -85,13 +82,61 @@ class AddShowExpensePresenterTest {
 
         val completable = Completable.complete()
 
-        `when`(userHelper.getUser()).thenReturn(user)
-        `when`(firebaseHelper.addExpense(user.userId!!, expense)).thenReturn(completable)
+        whenever(userHelper.getUser()).thenReturn(user)
+        whenever(firebaseHelper.addExpense(user.userId!!, expense)).thenReturn(completable)
+        whenever(firebaseHelper.updateUser(user)).thenReturn(completable)
         presenter?.saveExpense(amount, purpose, users as ArrayList<User>)
         verify(view).showLoader()
-        verify(view).hideLoader()
         verify(view).expenseSaved()
+    }
 
+    @Test
+    fun testFilterFriendsAndRemoveCurrentUserFromTheFriends() {
+        val users = mutableListOf<User>()
+        for ((userId, name) in getExpense().friends) {
+            val user = User(userId, name, userAmount = 1000)
+            users.add(user)
+        }
+        users.filterAndRemoveUser(getExpense().userId)
+        presenter?.filterFriends(getExpense(), 1000)
+        verify(view).updateFilteredUsers(users)
+    }
+
+    @Test
+    fun testShowSelectedFriendsOnUiWithAmount() {
+        val selectedFriends = mutableListOf<User>()
+        presenter?.friendsSelected(getSelectedUsers() as ArrayList<User>, 1000)
+        val amountPerUser: Int = 1000 / (getSelectedUsers().size + 1)
+
+        getSelectedUsers().forEach {
+            it.userAmount = amountPerUser
+            selectedFriends.add(it)
+        }
+        verify(view).showSelectedFriendsOnUi(selectedFriends)
+    }
+
+    @Test
+    fun testShowSelectedFriendsOnUiWithAmountIsZero() {
+        val selectedFriends = mutableListOf<User>()
+        presenter?.friendsSelected(getSelectedUsers() as ArrayList<User>, 0)
+        getSelectedUsers().forEach {
+            it.userAmount = 0
+            selectedFriends.add(it)
+        }
+        verify(view).showSelectedFriendsOnUi(selectedFriends)
+    }
+
+    @Test
+    fun testShowErrorWhenThereAreNoSelectedUsers() {
+        val emptyList = ArrayList<User>()
+        presenter?.friendsSelected(emptyList, 1000)
+        verify(view, never()).showSelectedFriendsOnUi(emptyList)
+    }
+
+    @Test
+    fun testCheckIfSelectFriendsActivityGettingCalled() {
+        presenter?.showSelectFriendsActivity()
+        verify(view).showSelectFriendsActivity()
     }
 
     @After

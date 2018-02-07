@@ -21,7 +21,7 @@ class FriendsPresenter @Inject constructor(private val firebaseHelper: FirebaseH
                     val friends = users.filter { it.userId != userHelper.getUser().userId }
                             .toMutableList()
                     view?.showUserFriends(friends)
-                }, { Timber.e(it) })
+                }, Timber::e)
     }
 
 }

@@ -31,7 +31,6 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
     }
 
     private fun validateUserInputs(amountPaid: Int, purpose: String?, selectedUsers: ArrayList<User>): Boolean {
-
         when {
             amountPaid <= 0 -> {
                 view?.showAmountEmptyError()
@@ -75,21 +74,19 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
                 .doOnComplete {
                     view?.hideLoader()
                     view?.expenseSaved()
-                }.subscribe({ Timber.i("Expense added successfully") },
-                        { Timber.e(it) })
+                }.subscribe({ Timber.i("Expense added successfully") }, Timber::e)
 
     }
 
     private fun updateUserBalance(user: User, expense: Expense) {
-        if (user.userId == expense.userId) {
-            user.userLent += (expense.amountPerUser * (expense.friends.size - 1))
-        } else {
-            user.userBorrow += expense.amountPerUser
+        when {
+            user.userId == expense.userId ->
+                user.userLent += (expense.amountPerUser * (expense.friends.size - 1))
+            else -> user.userBorrow += expense.amountPerUser
         }
         compositeDisposable += firebaseHelper.updateUser(user)
                 .compose(transformCompletable())
-                .subscribe({ Timber.i("Expense added successfully") },
-                        { Timber.e(it) })
+                .subscribe({ Timber.i("Expense added successfully") }, Timber::e)
     }
 
     private fun getExpenseFriendsMap(selectedUsers: ArrayList<User>): MutableMap<String, String> {

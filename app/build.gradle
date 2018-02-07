@@ -11,7 +11,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.shivamdev.spendit.dagger.common.SpendItTestRunner"
+        //testInstrumentationRunner "com.shivamdev.spendit.common.SpendItTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
@@ -26,21 +27,9 @@ android {
         javaMaxHeapSize "8g"
     }
 
-    android {
-        testOptions {
-            unitTests.all {
-                jvmArgs '-noverify'
-            }
-        }
-    }
-
-    sourceSets {
-        def commonTestDir = 'src/commonTest/java'
-        test {
-            java.srcDir commonTestDir
-        }
-        androidTest {
-            java.srcDir commonTestDir
+    testOptions {
+        unitTests.all {
+            jvmArgs '-noverify'
         }
     }
 
@@ -73,19 +62,26 @@ dependencies {
     implementation networkLibs
     implementation rxJavaLibs
     implementation otherLibs
-    debugImplementation debugLibs
-    //releaseImplementation releaseLibs
-    implementation(glideOkhttp) {
-        exclude group: 'glide-parent'
-    }
+
     // APT dependencies
     kapt annotationProcessorLibs
     kaptTest daggerCompiler
     kaptAndroidTest daggerCompiler
+
     testImplementation unitTestLibs
     androidTestImplementation androidTestsLibs
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation('com.android.support.test:runner:1.0.1') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
     testImplementation unitTestLibs
-    androidTestImplementation androidTestsLibs
 }
 
 tasks.matching { it instanceof Test }.all {

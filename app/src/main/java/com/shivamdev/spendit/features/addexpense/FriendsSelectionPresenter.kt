@@ -24,7 +24,7 @@ class FriendsSelectionPresenter @Inject constructor(private val firebaseHelper: 
                 .subscribe({ users ->
                     val friends = users.filter { it.userId != currentUser.userId }.toMutableList()
                     checkAlreadySelectedUsers(friends, selectedUsers)
-                }, { Timber.e(it) })
+                }, Timber::e)
 
     }
 

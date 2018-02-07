@@ -1,16 +1,19 @@
 package com.shivamdev.spendit.features.home
 
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
-import com.shivamdev.spendit.data.models.User
+import com.shivamdev.spendit.dummy.USER_ID
+import com.shivamdev.spendit.dummy.getUser
+import com.shivamdev.spendit.utils.RxSchedulersOverrideRule
 import io.reactivex.Observable
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -21,20 +24,24 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class HomePresenterTest {
 
-    @Mock
-    private lateinit var firebaseHelper: FirebaseHelper
+    @JvmField
+    @Rule
+    val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    @Mock
-    private lateinit var userHelper: UserHelper
+    private val userObservable = Observable.just(getUser())
 
-    @Mock
-    private lateinit var view: HomeView
+    private var firebaseHelper: FirebaseHelper = mock {
+        on { getFirebaseUser() } doReturn getUser()
+        on { getUserDetails(USER_ID) } doReturn userObservable
+    }
 
-    @Mock
-    private lateinit var user: User
+    private var userHelper: UserHelper = mock {
+        on { getUser() } doReturn getUser()
+    }
+
+    private var view: HomeView = mock()
 
     private var presenter: HomePresenter? = null
-
 
     @Before
     fun setUp() {
@@ -43,12 +50,16 @@ class HomePresenterTest {
     }
 
     @Test
-    fun checkIfUserIsLoggedIn() {
-        val userObservable = Observable.just(user)
-        `when`(firebaseHelper.getUserDetails(anyString())).thenReturn(userObservable)
+    fun testCheckIfUserIsLoggedIn() {
         presenter?.checkUserLogin()
-        verify(userHelper).saveUser(user)
+        verify(userHelper).saveUser(getUser())
+    }
 
+    @Test
+    fun testRedirectUserToLoginScreenIfNotLoggedIn() {
+        whenever(firebaseHelper.getFirebaseUser()).thenReturn(null)
+        presenter?.checkUserLogin()
+        verify(view).startLoginActivity()
     }
 
     @After

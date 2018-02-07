@@ -31,9 +31,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                 .subscribe({ user ->
                     val netBalance = user.userLent - user.userBorrow
                     view?.updateUserBalance(user.userLent, netBalance)
-                }, {
-                    Timber.e(it)
-                })
+                }, Timber::e)
     }
 
     fun getUserBorrowBalance() {
@@ -50,9 +48,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                 .subscribe({ user ->
                     val netBalance = user.userLent - user.userBorrow
                     view?.updateUserBalance(user.userBorrow, netBalance)
-                }, {
-                    Timber.e(it)
-                })
+                }, Timber::e)
 
     }
 
@@ -67,7 +63,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                         view?.showNoExpensesMessage()
                     }
                     view?.hideLoader()
-                }, { Timber.e(it) })
+                }, Timber::e)
     }
 
 }

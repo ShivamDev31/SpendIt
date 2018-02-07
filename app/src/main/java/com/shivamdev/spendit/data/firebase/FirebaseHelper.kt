@@ -1,5 +1,6 @@
 package com.shivamdev.spendit.data.firebase
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.shivamdev.spendit.common.constants.USER_TABLE
@@ -19,6 +20,15 @@ import javax.inject.Singleton
 
 @Singleton
 class FirebaseHelper @Inject constructor(private val firestore: FirebaseFirestore) {
+
+    fun getFirebaseUser(): User? {
+        val firebaseUser = FirebaseAuth.getInstance()?.currentUser
+        return if (firebaseUser == null) {
+            null
+        } else {
+            User(firebaseUser.uid, firebaseUser.displayName)
+        }
+    }
 
     fun updateUser(user: User): Completable = firestore
             .collection(USER_TABLE).document("${user.userId}").mergeDocument(user)

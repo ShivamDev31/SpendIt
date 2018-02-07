@@ -1,6 +1,5 @@
 package com.shivamdev.spendit.features.login
 
-import com.google.firebase.auth.FirebaseAuth
 import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
@@ -23,13 +22,11 @@ class LoginPresenter @Inject constructor(private val firebaseHelper: FirebaseHel
     }
 
     private fun updateUsersTable() {
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-        val user = User(firebaseUser?.uid, firebaseUser?.displayName)
-        updateLocalPreferences(user)
+        val user = firebaseHelper.getFirebaseUser()
+        updateLocalPreferences(user!!)
         compositeDisposable += firebaseHelper.updateUser(user)
                 .compose(transformCompletable())
-                .subscribe({ Timber.i("User added successfully") },
-                        { Timber.e(it) })
+                .subscribe({ Timber.i("User added successfully") }, Timber::e)
     }
 
     private fun updateLocalPreferences(user: User) {
