@@ -57,9 +57,7 @@ class FriendsFragment : BaseFragment<FriendsPresenter>(), FriendsView {
     }
 
     companion object {
-        fun newInstance(): FriendsFragment {
-            return FriendsFragment()
-        }
+        fun newInstance() = FriendsFragment()
     }
 
 }

@@ -1,13 +1,13 @@
 package com.shivamdev.spendit.exts
 
-import android.app.Activity
 import android.content.Context
+import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -27,10 +27,6 @@ fun Context.longToast(@StringRes messageId: Int) {
 
 fun Context.shortToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Context.longToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
 fun TextView.clear() {
@@ -63,7 +59,6 @@ fun EditText.onTextChange(textChanged: (String) -> Unit) {
     })
 }
 
-fun Activity.hideKeyboard() {
-    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
+fun TextView.textColor(@ColorRes color: Int) {
+    setTextColor(ContextCompat.getColor(this.context, color))
 }

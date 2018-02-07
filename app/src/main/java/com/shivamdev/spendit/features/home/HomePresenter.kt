@@ -5,6 +5,7 @@ import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.exts.transformObservable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -29,14 +30,14 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
                 .subscribe({
                     userHelper.saveUser(it)
                 }, { Timber.e(it) })
-        addDisposable(disp)
+
+        compositeDisposable += disp
     }
 
     fun logoutUser() {
         FirebaseAuth.getInstance().signOut()
-        userHelper.saveUser(null)
+        userHelper.clear()
         checkUserLogin()
     }
-
 
 }

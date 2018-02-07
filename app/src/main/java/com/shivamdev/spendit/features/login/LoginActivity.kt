@@ -30,10 +30,8 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
-
     override fun initView() {
         setupGoogleSignIn()
-
         sibGoogle.setOnClickListener { signIn() }
     }
 
@@ -54,18 +52,14 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 Timber.e(e)
             }
-
         }
     }
 
@@ -77,19 +71,15 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
                         Timber.i("signInWithCredential:success")
                         presenter.signInSuccess()
                     } else {
-                        // If sign in fails, display a message to the user.
                         shortToast(R.string.sign_in_error)
                         Timber.i("signInWithCredential:failure ${task.exception}")
                     }
-
                     progressBar.hide()
                 })
     }
-
 
     override fun startHomeActivity() {
         activityStarter<HomeActivity>()

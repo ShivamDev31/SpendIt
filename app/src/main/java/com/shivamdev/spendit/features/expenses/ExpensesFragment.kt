@@ -10,6 +10,7 @@ import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.di.component.FragmentComponent
 import com.shivamdev.spendit.exts.hide
 import com.shivamdev.spendit.exts.show
+import com.shivamdev.spendit.exts.textColor
 import com.shivamdev.spendit.features.addexpense.AddShowExpenseActivity
 import com.shivamdev.spendit.features.expenses.adapter.ExpensesAdapter
 import kotlinx.android.synthetic.main.fragment_expenses.*
@@ -34,11 +35,11 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
         rgGiveTake.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbLent -> {
-                    tvBalance.setTextColor(resources.getColor(R.color.green))
+                    tvBalance.textColor(R.color.green)
                     presenter.getUserLentBalance()
                 }
                 R.id.rbBorrow -> {
-                    tvBalance.setTextColor(resources.getColor(R.color.red))
+                    tvBalance.textColor(R.color.red)
                     presenter.getUserBorrowBalance()
                 }
             }
@@ -48,9 +49,9 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
     override fun updateUserBalance(balance: Int, netBalance: Int) {
         tvBalance.text = getString(R.string.rupee_amount_int, balance)
         if (netBalance >= 0) {
-            tvNetBalance.setTextColor(resources.getColor(R.color.green))
+            tvNetBalance.textColor(R.color.green)
         } else {
-            tvNetBalance.setTextColor(resources.getColor(R.color.red))
+            tvNetBalance.textColor(R.color.red)
         }
         tvNetBalance.text = getString(R.string.rupee_net_balance_int, Math.abs(-netBalance))
     }
@@ -102,9 +103,7 @@ class ExpensesFragment : BaseFragment<ExpensesPresenter>(), ExpensesView {
     }
 
     companion object {
-        fun newInstance(): ExpensesFragment {
-            return ExpensesFragment()
-        }
+        fun newInstance() = ExpensesFragment()
     }
 
 }

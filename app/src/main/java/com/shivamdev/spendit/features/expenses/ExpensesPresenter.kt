@@ -4,7 +4,9 @@ import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.exts.NoSuchDocumentException
+import com.shivamdev.spendit.exts.transformCompletable
 import com.shivamdev.spendit.exts.transformObservable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     if (t is NoSuchDocumentException) {
                         val user = userHelper.getUser()
                         firebaseHelper.updateUser(user)
+                                .compose(transformCompletable())
                                 .subscribe({ getUserLentBalance() })
                     }
                 })
@@ -32,7 +35,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     Timber.e(it)
                 })
 
-        addDisposable(disp)
+        compositeDisposable += disp
     }
 
     fun getUserBorrowBalance() {
@@ -41,6 +44,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     if (t is NoSuchDocumentException) {
                         val user = userHelper.getUser()
                         firebaseHelper.updateUser(user)
+                                .compose(transformCompletable())
                                 .subscribe({ getUserBorrowBalance() })
                     }
                 })
@@ -52,7 +56,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     Timber.e(it)
                 })
 
-        addDisposable(disp)
+        compositeDisposable += disp
     }
 
     fun getExpensesData() {
@@ -68,9 +72,7 @@ class ExpensesPresenter @Inject constructor(private val firebaseHelper: Firebase
                     view?.hideLoader()
                 }, { Timber.e(it) })
 
-        addDisposable(disp)
-
-
+        compositeDisposable += disp
     }
 
 }

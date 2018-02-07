@@ -29,9 +29,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
         holder?.bind(friends[position])
     }
 
-    override fun getItemCount(): Int {
-        return friends.size
-    }
+    override fun getItemCount() = friends.size
 
     fun updateUserFriends(users: List<User>) {
         this.friends.clear()
@@ -42,7 +40,6 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
     fun getFriendClickedEvent(): PublishSubject<String> = clickSubject
 
     inner class FriendsHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         init {
             itemView.setOnClickListener { clickSubject.onNext(friends[adapterPosition].userId!!) }
         }
@@ -50,10 +47,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.FriendsHolder>() {
         fun bind(user: User) {
             itemView.tvNameInitials.text = user.name?.initials()
             itemView.tvFriendName.text = user.name
-            //itemView.tvOwingAmount.text = "\u20b9${user.amountBalance}"
         }
-
     }
-
 
 }

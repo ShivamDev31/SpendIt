@@ -8,5 +8,4 @@ import com.shivamdev.spendit.data.models.User
  */
 interface FriendsView : BaseView {
     fun showUserFriends(users: List<User>?)
-
 }

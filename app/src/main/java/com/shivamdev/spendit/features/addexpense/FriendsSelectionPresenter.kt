@@ -5,6 +5,7 @@ import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.exts.transformObservable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class FriendsSelectionPresenter @Inject constructor(private val firebaseHelper: 
                     checkAlreadySelectedUsers(friends, selectedUsers)
                 }, { Timber.e(it) })
 
-        addDisposable(disp)
+        compositeDisposable += disp
     }
 
     private fun checkAlreadySelectedUsers(friends: MutableList<User>, selectedUsers: ArrayList<User>?) {

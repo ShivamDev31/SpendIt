@@ -10,7 +10,7 @@ import java.util.*
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class Expense(//val id: String,
+data class Expense(
         val userId: String = "",
         val name: String = "",
         val amount: Int = 0,

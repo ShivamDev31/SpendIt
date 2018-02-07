@@ -6,8 +6,9 @@ import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.Expense
 import com.shivamdev.spendit.data.models.User
 import com.shivamdev.spendit.exts.filterAndRemoveUser
+import com.shivamdev.spendit.exts.transformCompletable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -30,21 +31,25 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
     }
 
     private fun validateUserInputs(amountPaid: Int, purpose: String?, selectedUsers: ArrayList<User>): Boolean {
-        if (amountPaid <= 0) {
-            view?.showAmountEmptyError()
-            return true
-        }
 
-        if (purpose.isNullOrBlank()) {
-            view?.showPurposeEmptyError()
-            return true
-        }
+        when {
+            amountPaid <= 0 -> {
+                view?.showAmountEmptyError()
+                return true
+            }
 
-        if (selectedUsers.size <= 0) {
-            view?.showFriendsEmptyError()
-            return true
+            purpose.isNullOrBlank() -> {
+                view?.showPurposeEmptyError()
+                return true
+            }
+
+            selectedUsers.isEmpty() -> {
+                view?.showFriendsEmptyError()
+                return true
+            }
+
+            else -> return false
         }
-        return false
     }
 
     private fun submitUserExpenses(amountPaid: Int, selectedUsers: ArrayList<User>, purpose: String?) {
@@ -61,19 +66,19 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
 
     private fun updateUserExpense(users: ArrayList<User>, expense: Expense) {
         val disp = Observable.fromIterable(users)
-                        .concatMapCompletable {
-                            it.checked = false
-                            updateUserBalance(it, expense)
-                            firebaseHelper.addExpense(it.userId!!, expense)
-                        }
-                        .observeOn(AndroidSchedulers.mainThread())
+                .concatMapCompletable {
+                    it.checked = false
+                    updateUserBalance(it, expense)
+                    firebaseHelper.addExpense(it.userId!!, expense)
+                }
+                .compose(transformCompletable())
                 .doOnComplete {
                     view?.hideLoader()
                     view?.expenseSaved()
-                }
-                        .subscribe({ Timber.i("Expense added successfully") },
-                                { Timber.e(it) })
-        addDisposable(disp)
+                }.subscribe({ Timber.i("Expense added successfully") },
+                        { Timber.e(it) })
+
+        compositeDisposable += disp
     }
 
     private fun updateUserBalance(user: User, expense: Expense) {
@@ -83,9 +88,11 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
             user.userBorrow += expense.amountPerUser
         }
         val disp = firebaseHelper.updateUser(user)
+                .compose(transformCompletable())
                 .subscribe({ Timber.i("Expense added successfully") },
                         { Timber.e(it) })
-        addDisposable(disp)
+
+        compositeDisposable += disp
     }
 
     private fun getExpenseFriendsMap(selectedUsers: ArrayList<User>): MutableMap<String, String> {
@@ -107,20 +114,21 @@ class AddShowExpensePresenter @Inject constructor(private val firebaseHelper: Fi
     }
 
     fun friendsSelected(selectedUsers: ArrayList<User>, amountPaid: Int) {
-        if (selectedUsers.isEmpty()) {
-            return
-        }
-        val amountPerUser: Int = if (amountPaid <= 0) {
-            0
-        } else {
-            amountPaid / (selectedUsers.size + 1)
-        }
         val selectedFriends = mutableListOf<User>()
-        selectedUsers.forEach {
-            it.userAmount = amountPerUser
-            selectedFriends.add(it)
+        when {
+            selectedUsers.isEmpty() -> return
+            else -> {
+                val amountPerUser: Int = when {
+                    amountPaid <= 0 -> 0
+                    else -> amountPaid / (selectedUsers.size + 1)
+                }
+                selectedUsers.forEach {
+                    it.userAmount = amountPerUser
+                    selectedFriends.add(it)
+                }
+                view?.showSelectedFriendsOnUi(selectedFriends)
+            }
         }
-        view?.showSelectedFriendsOnUi(selectedFriends)
     }
 
     fun showSelectFriendsActivity() {

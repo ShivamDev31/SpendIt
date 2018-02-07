@@ -4,6 +4,7 @@ import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.exts.transformObservable
+import io.reactivex.rxkotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -13,7 +14,6 @@ import javax.inject.Inject
 class FriendsPresenter @Inject constructor(private val firebaseHelper: FirebaseHelper,
                                            private val userHelper: UserHelper) : BasePresenter<FriendsView>() {
 
-
     fun getUserFriends() {
         val disp = firebaseHelper.getAllUsers()
                 .compose(transformObservable())
@@ -22,7 +22,8 @@ class FriendsPresenter @Inject constructor(private val firebaseHelper: FirebaseH
                             .toMutableList()
                     view?.showUserFriends(friends)
                 }, { Timber.e(it) })
-        addDisposable(disp)
+
+        compositeDisposable += disp
     }
 
 }

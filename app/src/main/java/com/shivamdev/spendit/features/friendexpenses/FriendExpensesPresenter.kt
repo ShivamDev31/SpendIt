@@ -15,7 +15,6 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
                                                   private val userHelper: UserHelper)
     : BasePresenter<FriendExpensesView>() {
 
-
     fun getFriendExpenses(friendId: String) {
         view?.showLoader()
         firebaseHelper.getUserExpenses(userHelper.getUser().userId)
@@ -47,6 +46,5 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
         view?.showFriendExpenses(friendExpenses)
         view?.hideLoader()
     }
-
 
 }

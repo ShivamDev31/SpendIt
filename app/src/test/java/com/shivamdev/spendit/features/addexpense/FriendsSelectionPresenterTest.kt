@@ -1,10 +1,15 @@
 package com.shivamdev.spendit.features.addexpense
 
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.User
-import com.shivamdev.spendit.dummy.*
+import com.shivamdev.spendit.dummy.getFilteredUsers
+import com.shivamdev.spendit.dummy.getSelectedUsers
+import com.shivamdev.spendit.dummy.getUnCommonUser
+import com.shivamdev.spendit.dummy.getUsers
 import com.shivamdev.spendit.utils.RxSchedulersOverrideRule
 import io.reactivex.Observable
 import org.junit.After
@@ -12,8 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -27,14 +30,15 @@ class FriendsSelectionPresenterTest {
     @Rule
     val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    @Mock
-    private lateinit var firebaseHelper: FirebaseHelper
+    private val usersObservable = Observable.just(getUsers())
 
-    @Mock
-    private lateinit var userHelper: UserHelper
-
-    @Mock
-    private lateinit var view: FriendsSelectionView
+    var firebaseHelper: FirebaseHelper = mock {
+        on { getAllUsers() } doReturn usersObservable
+    }
+    var userHelper: UserHelper = mock {
+        on { getUser() } doReturn getUnCommonUser()
+    }
+    var view: FriendsSelectionView = mock()
 
     private var presenter: FriendsSelectionPresenter? = null
 
@@ -46,18 +50,12 @@ class FriendsSelectionPresenterTest {
 
     @Test
     fun testGetUserDataWhenCurrentUserIsNotPresent() {
-        val usersObservable = Observable.just(getUsers())
-        Mockito.`when`(userHelper.getUser()).thenReturn(getUnCommonUser())
-        Mockito.`when`(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
         presenter?.getUserData(getSelectedUsers() as ArrayList)
         verify(view).showUsers(getUsers() as ArrayList)
     }
 
     @Test
     fun testGetUserDataWhenCurrentUserIsPresent() {
-        val usersObservable = Observable.just(getUsers())
-        Mockito.`when`(userHelper.getUser()).thenReturn(getUser())
-        Mockito.`when`(firebaseHelper.getAllUsers()).thenReturn(usersObservable)
         presenter?.getUserData(getSelectedUsers() as ArrayList)
         verify(view).showUsers(getFilteredUsers().toMutableList())
     }

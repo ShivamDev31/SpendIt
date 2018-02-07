@@ -16,11 +16,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AppModule::class, FirebaseModule::class])
 interface AppComponent {
-
     fun prefHelper(): PrefHelper
-
     fun firebaseHelper(): FirebaseHelper
-
     fun userHelper(): UserHelper
-
 }

@@ -22,6 +22,4 @@ interface ActivityComponent {
     fun inject(addShowExpenseActivity: AddShowExpenseActivity)
     fun inject(friendExpensesActivity: FriendExpensesActivity)
     fun inject(friendsSelectionActivity: FriendsSelectionActivity)
-
-
 }

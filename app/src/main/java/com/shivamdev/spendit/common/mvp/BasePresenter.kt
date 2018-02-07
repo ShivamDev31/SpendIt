@@ -1,7 +1,6 @@
 package com.shivamdev.spendit.common.mvp
 
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
@@ -12,7 +11,8 @@ open class BasePresenter<T : BaseView> : Presenter<T> {
 
     var view: T? = null
         private set
-    private val compositeDisposable = CompositeDisposable()
+
+    val compositeDisposable = CompositeDisposable()
 
     override fun attachView(mvpView: T) {
         this.view = mvpView
@@ -30,10 +30,6 @@ open class BasePresenter<T : BaseView> : Presenter<T> {
 
     fun checkViewAttached() {
         if (!isViewAttached) throw MvpViewNotAttachedException()
-    }
-
-    fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
     }
 
     private class MvpViewNotAttachedException internal constructor() : RuntimeException("Please call Presenter.attachView(BaseView) before" + " requesting data to the Presenter")

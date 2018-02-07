@@ -10,5 +10,4 @@ interface FriendExpensesView : BaseView {
     fun showFriendExpenses(expenses: MutableList<Expense>)
     fun showLoader()
     fun hideLoader()
-
 }

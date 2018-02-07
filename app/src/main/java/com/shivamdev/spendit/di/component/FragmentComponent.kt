@@ -14,8 +14,6 @@ import dagger.Component
 @Component(dependencies = [(AppComponent::class)],
         modules = [FragmentModule::class])
 interface FragmentComponent {
-
     fun inject(expensesFragment: ExpensesFragment)
     fun inject(friendsFragment: FriendsFragment)
-
 }

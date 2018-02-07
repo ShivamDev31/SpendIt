@@ -28,36 +28,4 @@ class AppModule(private val application: Application) {
         return context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
     }
 
-    /*@Provides
-    @Singleton
-    fun provideAppDatabase(): AppDatabase {
-        return Room.databaseBuilder(application, AppDatabase::class.java, "notes-db")
-                .allowMainThreadQueries()
-                .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideNotesDao(database: AppDatabase): NotesDao {
-        return database.notesDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideNotesRepository(notesDao: NotesDao): NotesRepository {
-        return NotesRepository(notesDao)
-    }*/
-
-    /*@Provides
-    @Singleton
-    fun provideFirebaseAuth() {
-
-    }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseHelper() {
-
-    }*/
-
 }

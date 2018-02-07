@@ -3,7 +3,7 @@ package com.shivamdev.spendit.di.module
 import dagger.Module
 
 /**
- * Created by shivam on 02/02/18.
+ * Created by shivam on 07/02/18.
  */
 @Module
-class FragmentModule
+class ActivityModule

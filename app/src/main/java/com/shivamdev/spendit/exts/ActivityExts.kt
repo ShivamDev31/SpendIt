@@ -18,5 +18,3 @@ inline fun <reified T : Any> intentFor(context: Context):
 inline fun <reified T : Any> Activity.activityStarterForResult(requestCode: Int) {
     startActivityForResult(intentFor<T>(this), requestCode)
 }
-
-

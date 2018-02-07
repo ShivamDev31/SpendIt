@@ -10,5 +10,4 @@ interface FriendsSelectionView : BaseView {
     fun showUsers(users: MutableList<User>)
     fun showSelectFriendsError()
     fun showSelectedFriendsOnUi()
-
 }

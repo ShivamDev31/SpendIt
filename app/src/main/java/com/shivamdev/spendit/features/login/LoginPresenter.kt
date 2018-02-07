@@ -5,6 +5,9 @@ import com.shivamdev.spendit.common.mvp.BasePresenter
 import com.shivamdev.spendit.data.firebase.FirebaseHelper
 import com.shivamdev.spendit.data.local.UserHelper
 import com.shivamdev.spendit.data.models.User
+import com.shivamdev.spendit.exts.transformCompletable
+import io.reactivex.rxkotlin.plusAssign
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -23,7 +26,12 @@ class LoginPresenter @Inject constructor(private val firebaseHelper: FirebaseHel
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val user = User(firebaseUser?.uid, firebaseUser?.displayName)
         updateLocalPreferences(user)
-        firebaseHelper.updateUser(user)
+        val disp = firebaseHelper.updateUser(user)
+                .compose(transformCompletable())
+                .subscribe({ Timber.i("User added successfully") },
+                        { Timber.e(it) })
+
+        compositeDisposable += disp
     }
 
     private fun updateLocalPreferences(user: User) {

@@ -17,8 +17,8 @@ class SelectedFriendsAdapter : RecyclerView.Adapter<SelectedFriendsAdapter.Selec
     private val friends = mutableListOf<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SelectedFriendsHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_selected_friends, parent,
-                false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_selected_friends,
+                parent, false)
         return SelectedFriendsHolder(view)
     }
 

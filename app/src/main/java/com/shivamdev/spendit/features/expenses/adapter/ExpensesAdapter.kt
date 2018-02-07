@@ -29,9 +29,7 @@ class ExpensesAdapter : RecyclerView.Adapter<ExpensesAdapter.ExpensesHolder>() {
         holder?.bind(expenses[position])
     }
 
-    override fun getItemCount(): Int {
-        return expenses.size
-    }
+    override fun getItemCount() = expenses.size
 
     fun updateUserExpenses(expenses: MutableList<Expense>) {
         this.expenses.clear()
