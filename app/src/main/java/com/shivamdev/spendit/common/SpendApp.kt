@@ -12,7 +12,7 @@ import timber.log.Timber
 /**
  * Created by shivam on 01/02/18.
  */
-class SpendApp : Application() {
+open class SpendApp : Application() {
 
     lateinit var component: AppComponent
         private set
@@ -25,17 +25,15 @@ class SpendApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        setupDagger()
+        component = setupDagger()
         Timber.plant(Timber.DebugTree())
         Stetho.initializeWithDefaults(this)
     }
 
-    private fun setupDagger() {
-        component = DaggerAppComponent
-                .builder()
-                .appModule(AppModule(this))
-                .build()
-    }
+    open fun setupDagger(): AppComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
 
     companion object {
         lateinit var instance: SpendApp

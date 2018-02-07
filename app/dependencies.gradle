@@ -22,7 +22,8 @@ ext {
             assertj      : '1.2.0',
             leakcanary   : '1.5.4',
             multiDex     : '1.0.2',
-            mockitoKotlin: '1.5.0'
+            mockitoKotlin: '1.5.0',
+            rxIdler      : '0.9.0'
     ]
 
     mockito = [mockito: "org.mockito:mockito-core:$versions.mockito"]
@@ -91,7 +92,8 @@ ext {
             espressoConcurrent: "com.android.support.test.espresso.idling:idling-concurrent:$versions.espresso",
             espressoNetIdle   : "com.android.support.test.espresso.idling:idling-net:$versions.espresso",
             testRunner        : "com.android.support.test:runner:$versions.testRunner",
-            testRules         : "com.android.support.test:rules:$versions.testRunner"
+            testRules         : "com.android.support.test:rules:$versions.testRunner",
+            rxIdler           : "com.squareup.rx.idler:rx2-idler:$versions.rxIdler",
     ] + mockito
 
     timber = "com.jakewharton.timber:timber:$versions.timber"

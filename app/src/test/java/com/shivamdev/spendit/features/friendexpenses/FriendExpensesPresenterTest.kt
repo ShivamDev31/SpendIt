@@ -58,7 +58,9 @@ class FriendExpensesPresenterTest {
     fun testGetUserFriendsFromFirebaseFailure() {
         val exception = NullPointerException("Exception")
         val expensesObservable = Observable.create<List<Expense>>({
-            it.onNext(getExpensesWithText())
+            val list = ArrayList<Expense>()
+            list.add(Expense())
+            it.onNext(list)
             it.onError(exception)
         })
 

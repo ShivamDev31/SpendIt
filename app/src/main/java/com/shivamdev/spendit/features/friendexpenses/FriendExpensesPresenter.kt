@@ -24,7 +24,6 @@ class FriendExpensesPresenter @Inject constructor(private val firebaseHelper: Fi
                     sortExpensesBasedOnFriends(it, friendId)
                 }, {
                     Timber.e(it)
-                    view?.hideLoader()
                 })
     }
 

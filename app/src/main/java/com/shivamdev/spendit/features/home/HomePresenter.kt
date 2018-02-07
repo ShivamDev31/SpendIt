@@ -20,8 +20,9 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
             view?.startLoginActivity()
+        } else {
+            syncUserData()
         }
-        syncUserData()
     }
 
     private fun syncUserData() {
