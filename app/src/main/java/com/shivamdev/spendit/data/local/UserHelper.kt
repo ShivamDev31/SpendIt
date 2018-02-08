@@ -24,10 +24,9 @@ class UserHelper @Inject constructor(private val prefHelper: PrefHelper,
 
     fun getUser(): User {
         val userJson = prefHelper.getString(USER_INFO_KEY)
+        if (userJson.isEmpty()) {
+            return User()
+        }
         return moshiHelper.getMoshi().fromJson(userJson)
-    }
-
-    fun clear() {
-        prefHelper.clear()
     }
 }

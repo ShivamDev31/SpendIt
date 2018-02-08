@@ -15,7 +15,7 @@ data class Expense(
         val name: String = "",
         val amount: Int = 0,
         val purpose: String = "",
-        val amountPerUser: Int = 0,
+        var amountPerUser: Int = 0,
         val friends: Map<String, String> = mutableMapOf(),
         var owingText: String = "",
         val timeStamp: Long = Date().time) : Parcelable

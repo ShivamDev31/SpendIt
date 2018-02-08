@@ -35,7 +35,7 @@ class HomePresenter @Inject constructor(private val userHelper: UserHelper,
 
     fun logoutUser() {
         FirebaseAuth.getInstance().signOut()
-        userHelper.clear()
+        userHelper.saveUser(null)
         checkUserLogin()
     }
 

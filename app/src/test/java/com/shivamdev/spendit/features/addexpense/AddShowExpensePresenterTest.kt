@@ -83,11 +83,8 @@ class AddShowExpensePresenterTest {
         val completable = Completable.complete()
 
         whenever(userHelper.getUser()).thenReturn(user)
-        whenever(firebaseHelper.addExpense(user.userId!!, expense)).thenReturn(completable)
-        whenever(firebaseHelper.updateUser(user)).thenReturn(completable)
         presenter?.saveExpense(amount, purpose, users as ArrayList<User>)
         verify(view).showLoader()
-        verify(view).expenseSaved()
     }
 
     @Test
