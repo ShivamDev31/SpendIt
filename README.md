@@ -3,14 +3,14 @@
 SpendIt is an expense tracking android application which uses Firebase Firestore as backend.
 
 **SpendIt has the following features**
-1.) User login using google account.
-2.) User can see his expense(lent and borrowed) on the home screen).
-3.) User can see how much he has lent or borrowed from/to others.
-4.) User can see his balance in total.
-5.) User can see the friends(users available on firebase).
-6.) User can see his expenses shared with any of those friends.
-7.) User can click on a transaction and see transaction details like who has made the transaction, transaction amount and other people involved in it.
-8.) User can add a transaction and select other involved friends from the list.
+* User login using google account.
+* User can see his expense(lent and borrowed) on the home screen).
+* User can see how much he has lent or borrowed from/to others.
+* User can see his balance in total.
+* User can see the friends(users available on firebase).
+* User can see his expenses shared with any of those friends.
+* User can click on a transaction and see transaction details like who has made the transaction, transaction amount and other people involved in it.
+* User can add a transaction and select other involved friends from the list.
 
 **Please raise a PR if you would like to improve/contribute to this project.**
 
